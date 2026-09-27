@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>M5S3 Telemetry</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #101418;
+            color: white;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #9da7b1;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        /* ---------------------------------------------
+           CONNECTION AREA
+        --------------------------------------------- */
+
+        .connection-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            background: #1b2128;
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .status-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+
+            border-radius: 50%;
+
+            background: #d9534f;
+        }
+
+        .status-dot.connected {
+            background: #38c172;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+
+            padding: 12px 20px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            background: #2584ff;
+            color: white;
+
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+        }
+
+        /* ---------------------------------------------
+           MAIN CARDS
+        --------------------------------------------- */
+
+        .top-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: #1b2128;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+        .label {
+            color: #9da7b1;
+
+            font-size: 14px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+        .big-value {
+            font-size: 38px;
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+        #wordValue {
+            color: #ffd43b;
+        }
+
+        /* ---------------------------------------------
+           ACCELEROMETER
+        --------------------------------------------- */
+
+        .accelerometer {
+            margin-top: 15px;
+        }
+
+        .axis-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .axis-card {
+            background: #252d35;
+
+            border-radius: 10px;
+
+            padding: 16px;
+
+            text-align: center;
+        }
+
+        .axis-name {
+            color: #9da7b1;
+        }
+
+        .axis-value {
+            font-size: 28px;
+            font-weight: bold;
+
+            margin-top: 5px;
+        }
+
+        /* ---------------------------------------------
+           LIVE POSITION BARS
+        --------------------------------------------- */
+
+        .bar-row {
+            display: grid;
+
+            grid-template-columns:
+                30px 1fr 70px;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 16px 0;
+        }
+
+        .track {
+            position: relative;
+
+            height: 14px;
+
+            border-radius: 7px;
+
+            background: #303a44;
+        }
+
+        .centre-line {
+            position: absolute;
+
+            left: 50%;
+            top: -4px;
+
+            height: 22px;
+
+            width: 2px;
+
+            background: #68737e;
+        }
+
+        .marker {
+            position: absolute;
+
+            top: -4px;
+
+            width: 10px;
+            height: 22px;
+
+            border-radius: 4px;
+
+            background: #2584ff;
+
+            transform: translateX(-50%);
+
+            left: 50%;
+
+            transition: left 0.1s linear;
+        }
+
+        .bar-number {
+            text-align: right;
+            font-family: monospace;
+        }
+
+        /* ---------------------------------------------
+           RAW DATA / DEBUG
+        --------------------------------------------- */
+
+        .debug {
+            margin-top: 15px;
+
+            font-family: monospace;
+            font-size: 13px;
+
+            color: #9da7b1;
+        }
+
+        .error {
+            color: #ff6b6b;
+
+            margin-top: 15px;
+        }
+
+        /* ---------------------------------------------
+           MOBILE
+        --------------------------------------------- */
+
+        @media (max-width: 500px) {
+
+            .top-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .axis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .connection-panel {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>M5Stack CoreS3</h1>
+
+    <p class="subtitle">
+        Live Bluetooth Telemetry
+    </p>
+
+
+    <!-- =====================================================
+         BLUETOOTH CONNECTION
+    ====================================================== -->
+
+    <div class="connection-panel">
+
+        <div class="status-area">
+
+            <div
+                id="statusDot"
+                class="status-dot"
+            ></div>
+
+            <div>
+
+                <strong id="statusText">
+                    Disconnected
+                </strong>
+
+                <div
+                    id="deviceName"
+                    style="color:#9da7b1; font-size:13px;"
+                >
+                    No device
+                </div>
+
+            </div>
+
+        </div>
+
+        <button id="connectButton">
+            CONNECT TO M5
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         WORD + TAP COUNT
+    ====================================================== -->
+
+    <div class="top-grid">
+
+        <div class="card">
+
+            <div class="label">
+                Current State
+            </div>
+
+            <div
+                id="wordValue"
+                class="big-value"
+            >
+                ----
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                Screen Taps
+            </div>
+
+            <div
+                id="tapValue"
+                class="big-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACCELEROMETER
+    ====================================================== -->
+
+    <div class="card accelerometer">
+
+        <div class="label">
+            Accelerometer
+        </div>
+
+
+        <!-- LARGE VALUES -->
+
+        <div class="axis-grid">
+
+            <div class="axis-card">
+
+                <div class="axis-name">
+                    X AXIS
+                </div>
+
+                <div
+                    id="xValue"
+                    class="axis-value"
+                >
+                    0.00
+                </div>
+
+            </div>
+
+
+            <div class="axis-card">
+
+                <div class="axis-name">
+                    Y AXIS
+                </div>
+
+                <div
+                    id="yValue"
+                    class="axis-value"
+                >
+                    0.00
+                </div>
+
+            </div>
+
+
+            <div class="axis-card">
+
+                <div class="axis-name">
+                    Z AXIS
+                </div>
+
+                <div
+                    id="zValue"
+                    class="axis-value"
+                >
+                    0.00
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- X BAR -->
+
+        <div class="bar-row">
+
+            <strong>X</strong>
+
+            <div class="track">
+
+                <div class="centre-line"></div>
+
+                <div
+                    id="xMarker"
+                    class="marker"
+                ></div>
+
+            </div>
+
+            <div
+                id="xBarNumber"
+                class="bar-number"
+            >
+                0.00 g
+            </div>
+
+        </div>
+
+
+        <!-- Y BAR -->
+
+        <div class="bar-row">
+
+            <strong>Y</strong>
+
+            <div class="track">
+
+                <div class="centre-line"></div>
+
+                <div
+                    id="yMarker"
+                    class="marker"
+                ></div>
+
+            </div>
+
+            <div
+                id="yBarNumber"
+                class="bar-number"
+            >
+                0.00 g
+            </div>
+
+        </div>
+
+
+        <!-- Z BAR -->
+
+        <div class="bar-row">
+
+            <strong>Z</strong>
+
+            <div class="track">
+
+                <div class="centre-line"></div>
+
+                <div
+                    id="zMarker"
+                    class="marker"
+                ></div>
+
+            </div>
+
+            <div
+                id="zBarNumber"
+                class="bar-number"
+            >
+                0.00 g
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DEBUG
+    ====================================================== -->
+
+    <div class="card debug">
+
+        <div class="label">
+            Last BLE packet
+        </div>
+
+        <div id="rawData">
+            Waiting for connection...
+        </div>
+
+    </div>
+
+
+    <div
+        id="errorMessage"
+        class="error"
+    ></div>
+
+</div>
+
+
+<script>
+
+    // ========================================================
+    // UUIDs FROM OUR M5STACK FIRMWARE
+    // ========================================================
+
+    const SERVICE_UUID =
+        "91bad492-b950-4226-aa2b-4ede9fa42f59";
+
+    const ACCEL_UUID =
+        "ca73b3ba-39f6-4ab3-91ae-186dc9577d99";
+
+    const TAP_UUID =
+        "1c95d5e3-d8f7-4131-a3f1-0dbe5a7d0a01";
+
+    const WORD_UUID =
+        "1c95d5e3-d8f7-4131-a3f1-0dbe5a7d0a02";
+
+
+    // ========================================================
+    // GLOBAL VARIABLES
+    // ========================================================
+
+    let bluetoothDevice = null;
+
+    let gattServer = null;
+
+    const decoder =
+        new TextDecoder("utf-8");
+
+
+    // ========================================================
+    // HTML ELEMENTS
+    // ========================================================
+
+    const connectButton =
+        document.getElementById(
+            "connectButton"
+        );
+
+    const statusDot =
+        document.getElementById(
+            "statusDot"
+        );
+
+    const statusText =
+        document.getElementById(
+            "statusText"
+        );
+
+    const deviceName =
+        document.getElementById(
+            "deviceName"
+        );
+
+    const errorMessage =
+        document.getElementById(
+            "errorMessage"
+        );
+
+    const rawData =
+        document.getElementById(
+            "rawData"
+        );
+
+
+    // ========================================================
+    // CONVERT BLE DATAVIEW TO STRING
+    // ========================================================
+
+    function valueToString(value) {
+
+        return decoder.decode(
+
+            new Uint8Array(
+
+                value.buffer,
+
+                value.byteOffset,
+
+                value.byteLength
+            )
+        );
+    }
+
+
+    // ========================================================
+    // CONNECTION BUTTON
+    // ========================================================
+
+    connectButton.addEventListener(
+        "click",
+        connectBluetooth
+    );
+
+
+    // ========================================================
+    // CONNECT TO M5
+    // ========================================================
+
+    async function connectBluetooth() {
+
+        errorMessage.textContent = "";
+
+        try {
+
+            // ------------------------------------------------
+            // Check browser supports Web Bluetooth
+            // ------------------------------------------------
+
+            if (!navigator.bluetooth) {
+
+                throw new Error(
+                    "Web Bluetooth is not available in this browser."
+                );
+            }
+
+
+            statusText.textContent =
+                "Selecting device...";
+
+
+            // ------------------------------------------------
+            // Android / Chrome Bluetooth chooser
+            // ------------------------------------------------
+
+            bluetoothDevice =
+                await navigator.bluetooth.requestDevice({
+
+                    filters: [
+
+                        {
+                            name:
+                                "M5S3-Telemetry"
+                        }
+                    ],
+
+                    optionalServices: [
+                        SERVICE_UUID
+                    ]
+
+                });
+
+
+            // ------------------------------------------------
+            // Detect disconnect
+            // ------------------------------------------------
+
+            bluetoothDevice.addEventListener(
+
+                "gattserverdisconnected",
+
+                handleDisconnect
+            );
+
+
+            statusText.textContent =
+                "Connecting...";
+
+
+            deviceName.textContent =
+                bluetoothDevice.name;
+
+
+            // ------------------------------------------------
+            // Connect to GATT server
+            // ------------------------------------------------
+
+            gattServer =
+                await bluetoothDevice.gatt.connect();
+
+
+            // ------------------------------------------------
+            // Find our M5 service
+            // ------------------------------------------------
+
+            const service =
+                await gattServer.getPrimaryService(
+                    SERVICE_UUID
+                );
+
+
+            // ------------------------------------------------
+            // Find characteristics
+            // ------------------------------------------------
+
+            const accelCharacteristic =
+                await service.getCharacteristic(
+                    ACCEL_UUID
+                );
+
+
+            const tapCharacteristic =
+                await service.getCharacteristic(
+                    TAP_UUID
+                );
+
+
+            const wordCharacteristic =
+                await service.getCharacteristic(
+                    WORD_UUID
+                );
+
+
+            // ------------------------------------------------
+            // Subscribe to accelerometer
+            // ------------------------------------------------
+
+            await accelCharacteristic
+                .startNotifications();
+
+
+            accelCharacteristic
+                .addEventListener(
+
+                    "characteristicvaluechanged",
+
+                    handleAccelerometer
+                );
+
+
+            // ------------------------------------------------
+            // Subscribe to tap counter
+            // ------------------------------------------------
+
+            await tapCharacteristic
+                .startNotifications();
+
+
+            tapCharacteristic
+                .addEventListener(
+
+                    "characteristicvaluechanged",
+
+                    handleTap
+                );
+
+
+            // ------------------------------------------------
+            // Subscribe to word
+            // ------------------------------------------------
+
+            await wordCharacteristic
+                .startNotifications();
+
+
+            wordCharacteristic
+                .addEventListener(
+
+                    "characteristicvaluechanged",
+
+                    handleWord
+                );
+
+
+            // ------------------------------------------------
+            // READ INITIAL VALUES
+            // ------------------------------------------------
+
+            const accelInitial =
+                await accelCharacteristic
+                    .readValue();
+
+
+            updateAccelerometer(
+                valueToString(accelInitial)
+            );
+
+
+            const tapInitial =
+                await tapCharacteristic
+                    .readValue();
+
+
+            updateTap(
+                valueToString(tapInitial)
+            );
+
+
+            const wordInitial =
+                await wordCharacteristic
+                    .readValue();
+
+
+            updateWord(
+                valueToString(wordInitial)
+            );
+
+
+            // ------------------------------------------------
+            // Connection successful
+            // ------------------------------------------------
+
+            statusText.textContent =
+                "Connected";
+
+
+            statusDot.classList.add(
+                "connected"
+            );
+
+
+            connectButton.textContent =
+                "CONNECTED";
+
+
+            connectButton.disabled =
+                true;
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            statusText.textContent =
+                "Disconnected";
+
+
+            errorMessage.textContent =
+                error.message;
+        }
+    }
+
+
+    // ========================================================
+    // ACCELEROMETER NOTIFICATION
+    // ========================================================
+
+    function handleAccelerometer(event) {
+
+        const text =
+            valueToString(
+                event.target.value
+            );
+
+
+        updateAccelerometer(text);
+    }
+
+
+    // ========================================================
+    // UPDATE ACCELEROMETER DISPLAY
+    // ========================================================
+
+    function updateAccelerometer(text) {
+
+        rawData.textContent =
+            "ACCEL: " + text;
+
+
+        const parts =
+            text.split(",");
+
+
+        if (parts.length !== 3) {
+
+            return;
+        }
+
+
+        const x =
+            parseFloat(parts[0]);
+
+        const y =
+            parseFloat(parts[1]);
+
+        const z =
+            parseFloat(parts[2]);
+
+
+        if (
+            Number.isNaN(x) ||
+            Number.isNaN(y) ||
+            Number.isNaN(z)
+        ) {
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // Numeric values
+        // ----------------------------------------------------
+
+        document.getElementById(
+            "xValue"
+        ).textContent =
+            x.toFixed(2);
+
+
+        document.getElementById(
+            "yValue"
+        ).textContent =
+            y.toFixed(2);
+
+
+        document.getElementById(
+            "zValue"
+        ).textContent =
+            z.toFixed(2);
+
+
+        document.getElementById(
+            "xBarNumber"
+        ).textContent =
+            x.toFixed(2) + " g";
+
+
+        document.getElementById(
+            "yBarNumber"
+        ).textContent =
+            y.toFixed(2) + " g";
+
+
+        document.getElementById(
+            "zBarNumber"
+        ).textContent =
+            z.toFixed(2) + " g";
+
+
+        // ----------------------------------------------------
+        // Moving graphical markers
+        // Assume range -2 g to +2 g
+        // ----------------------------------------------------
+
+        updateMarker(
+            "xMarker",
+            x
+        );
+
+
+        updateMarker(
+            "yMarker",
+            y
+        );
+
+
+        updateMarker(
+            "zMarker",
+            z
+        );
+    }
+
+
+    // ========================================================
+    // MOVE GRAPHICAL MARKER
+    // ========================================================
+
+    function updateMarker(
+        elementID,
+        value
+    ) {
+
+        // Clamp to -2g ... +2g
+
+        let clamped =
+            Math.max(
+                -2,
+                Math.min(
+                    2,
+                    value
+                )
+            );
+
+
+        // Convert:
+        //
+        // -2g = 0%
+        //  0g = 50%
+        // +2g = 100%
+
+        const percentage =
+            ((clamped + 2) / 4)
+            * 100;
+
+
+        document.getElementById(
+            elementID
+        ).style.left =
+            percentage + "%";
+    }
+
+
+    // ========================================================
+    // TAP NOTIFICATION
+    // ========================================================
+
+    function handleTap(event) {
+
+        const text =
+            valueToString(
+                event.target.value
+            );
+
+
+        updateTap(text);
+    }
+
+
+    function updateTap(text) {
+
+        document.getElementById(
+            "tapValue"
+        ).textContent =
+            text;
+
+
+        rawData.textContent =
+            "TAP: " + text;
+    }
+
+
+    // ========================================================
+    // WORD NOTIFICATION
+    // ========================================================
+
+    function handleWord(event) {
+
+        const text =
+            valueToString(
+                event.target.value
+            );
+
+
+        updateWord(text);
+    }
+
+
+    function updateWord(text) {
+
+        document.getElementById(
+            "wordValue"
+        ).textContent =
+            text;
+
+
+        rawData.textContent =
+            "WORD: " + text;
+    }
+
+
+    // ========================================================
+    // DISCONNECTION
+    // ========================================================
+
+    function handleDisconnect() {
+
+        statusText.textContent =
+            "Disconnected";
+
+
+        statusDot.classList.remove(
+            "connected"
+        );
+
+
+        connectButton.textContent =
+            "CONNECT TO M5";
+
+
+        connectButton.disabled =
+            false;
+
+
+        deviceName.textContent =
+            "No device";
+    }
+
+</script>
+
+</body>
+</html>
