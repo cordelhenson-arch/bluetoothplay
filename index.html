@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -11,6 +13,7 @@
     <title>M5S3 Telemetry</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -29,7 +32,7 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: auto;
         }
 
@@ -43,13 +46,16 @@
             margin-bottom: 25px;
         }
 
-        /* ---------------------------------------------
-           CONNECTION AREA
-        --------------------------------------------- */
+        /* =====================================================
+           CONNECTION
+        ===================================================== */
 
         .connection-panel {
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             gap: 15px;
@@ -57,19 +63,25 @@
             padding: 15px;
 
             background: #1b2128;
+
             border-radius: 12px;
 
             margin-bottom: 20px;
         }
 
         .status-area {
+
             display: flex;
+
             align-items: center;
+
             gap: 10px;
         }
 
         .status-dot {
+
             width: 14px;
+
             height: 14px;
 
             border-radius: 50%;
@@ -82,15 +94,19 @@
         }
 
         button {
+
             border: none;
+
             border-radius: 8px;
 
             padding: 12px 20px;
 
             font-size: 16px;
+
             font-weight: bold;
 
             background: #2584ff;
+
             color: white;
 
             cursor: pointer;
@@ -100,11 +116,16 @@
             opacity: 0.5;
         }
 
-        /* ---------------------------------------------
-           MAIN CARDS
-        --------------------------------------------- */
+        .secondary-button {
+            background: #39434d;
+        }
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
 
         .top-grid {
+
             display: grid;
 
             grid-template-columns:
@@ -116,6 +137,7 @@
         }
 
         .card {
+
             background: #1b2128;
 
             border-radius: 12px;
@@ -124,6 +146,7 @@
         }
 
         .label {
+
             color: #9da7b1;
 
             font-size: 14px;
@@ -134,7 +157,9 @@
         }
 
         .big-value {
+
             font-size: 38px;
+
             font-weight: bold;
 
             margin-top: 8px;
@@ -144,15 +169,16 @@
             color: #ffd43b;
         }
 
-        /* ---------------------------------------------
-           ACCELEROMETER
-        --------------------------------------------- */
+        /* =====================================================
+           ACCELEROMETER VALUES
+        ===================================================== */
 
         .accelerometer {
             margin-top: 15px;
         }
 
         .axis-grid {
+
             display: grid;
 
             grid-template-columns:
@@ -161,10 +187,12 @@
             gap: 12px;
 
             margin-top: 20px;
+
             margin-bottom: 25px;
         }
 
         .axis-card {
+
             background: #252d35;
 
             border-radius: 10px;
@@ -179,17 +207,20 @@
         }
 
         .axis-value {
+
             font-size: 28px;
+
             font-weight: bold;
 
             margin-top: 5px;
         }
 
-        /* ---------------------------------------------
-           LIVE POSITION BARS
-        --------------------------------------------- */
+        /* =====================================================
+           LIVE BARS
+        ===================================================== */
 
         .bar-row {
+
             display: grid;
 
             grid-template-columns:
@@ -203,6 +234,7 @@
         }
 
         .track {
+
             position: relative;
 
             height: 14px;
@@ -213,9 +245,11 @@
         }
 
         .centre-line {
+
             position: absolute;
 
             left: 50%;
+
             top: -4px;
 
             height: 22px;
@@ -226,11 +260,13 @@
         }
 
         .marker {
+
             position: absolute;
 
             top: -4px;
 
             width: 10px;
+
             height: 22px;
 
             border-radius: 4px;
@@ -241,89 +277,230 @@
 
             left: 50%;
 
-            transition: left 0.1s linear;
+            transition: left 0.08s linear;
         }
 
         .bar-number {
+
             text-align: right;
+
             font-family: monospace;
         }
 
-        /* ---------------------------------------------
-           RAW DATA / DEBUG
-        --------------------------------------------- */
+        /* =====================================================
+           GRAPH
+        ===================================================== */
+
+        .graph-card {
+
+            margin-top: 15px;
+        }
+
+        .graph-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+        }
+
+        .graph-controls {
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+        .graph-controls button {
+
+            padding: 8px 14px;
+
+            font-size: 14px;
+        }
+
+        .graph-wrapper {
+
+            width: 100%;
+
+            height: 300px;
+
+            background: #13191f;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        #accelGraph {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+        }
+
+        .legend {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+
+            margin-top: 14px;
+
+            font-size: 14px;
+        }
+
+        .legend-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .legend-colour {
+
+            width: 22px;
+
+            height: 4px;
+
+            border-radius: 2px;
+        }
+
+        .x-colour {
+            background: #3aa0ff;
+        }
+
+        .y-colour {
+            background: #3ed67b;
+        }
+
+        .z-colour {
+            background: #ffca3a;
+        }
+
+        .graph-info {
+
+            text-align: center;
+
+            margin-top: 10px;
+
+            color: #9da7b1;
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           DEBUG
+        ===================================================== */
 
         .debug {
+
             margin-top: 15px;
 
             font-family: monospace;
+
             font-size: 13px;
 
             color: #9da7b1;
         }
 
         .error {
+
             color: #ff6b6b;
 
             margin-top: 15px;
         }
 
-        /* ---------------------------------------------
+        /* =====================================================
            MOBILE
-        --------------------------------------------- */
+        ===================================================== */
 
         @media (max-width: 500px) {
 
-            .top-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .axis-grid {
-                grid-template-columns: 1fr;
+            body {
+                padding: 12px;
             }
 
             .connection-panel {
+
                 flex-direction: column;
 
                 align-items: stretch;
             }
 
-            button {
+            .connection-panel button {
                 width: 100%;
             }
+
+            .axis-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .graph-wrapper {
+                height: 260px;
+            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
+
     <h1>M5Stack CoreS3</h1>
+
 
     <p class="subtitle">
         Live Bluetooth Telemetry
     </p>
 
 
+
     <!-- =====================================================
-         BLUETOOTH CONNECTION
+         CONNECTION
     ====================================================== -->
 
     <div class="connection-panel">
 
+
         <div class="status-area">
+
 
             <div
                 id="statusDot"
                 class="status-dot"
             ></div>
 
+
             <div>
+
 
                 <strong id="statusText">
                     Disconnected
                 </strong>
+
 
                 <div
                     id="deviceName"
@@ -332,28 +509,36 @@
                     No device
                 </div>
 
+
             </div>
 
+
         </div>
+
 
         <button id="connectButton">
             CONNECT TO M5
         </button>
 
+
     </div>
 
 
+
     <!-- =====================================================
-         WORD + TAP COUNT
+         WORD + TAPS
     ====================================================== -->
 
     <div class="top-grid">
 
+
         <div class="card">
+
 
             <div class="label">
                 Current State
             </div>
+
 
             <div
                 id="wordValue"
@@ -362,14 +547,18 @@
                 ----
             </div>
 
+
         </div>
+
 
 
         <div class="card">
 
+
             <div class="label">
                 Screen Taps
             </div>
+
 
             <div
                 id="tapValue"
@@ -378,9 +567,12 @@
                 0
             </div>
 
+
         </div>
 
+
     </div>
+
 
 
     <!-- =====================================================
@@ -389,14 +581,15 @@
 
     <div class="card accelerometer">
 
+
         <div class="label">
             Accelerometer
         </div>
 
 
-        <!-- LARGE VALUES -->
 
         <div class="axis-grid">
+
 
             <div class="axis-card">
 
@@ -412,6 +605,7 @@
                 </div>
 
             </div>
+
 
 
             <div class="axis-card">
@@ -430,6 +624,7 @@
             </div>
 
 
+
             <div class="axis-card">
 
                 <div class="axis-name">
@@ -445,7 +640,9 @@
 
             </div>
 
+
         </div>
+
 
 
         <!-- X BAR -->
@@ -475,6 +672,7 @@
         </div>
 
 
+
         <!-- Y BAR -->
 
         <div class="bar-row">
@@ -500,6 +698,7 @@
             </div>
 
         </div>
+
 
 
         <!-- Z BAR -->
@@ -528,7 +727,124 @@
 
         </div>
 
+
     </div>
+
+
+
+    <!-- =====================================================
+         LIVE GRAPH
+    ====================================================== -->
+
+    <div class="card graph-card">
+
+
+        <div class="graph-header">
+
+
+            <div>
+
+                <div class="label">
+                    Live Accelerometer Graph
+                </div>
+
+                <div
+                    style="
+                        margin-top:5px;
+                        color:#9da7b1;
+                        font-size:13px;
+                    "
+                >
+                    Rolling 20 second history
+                </div>
+
+            </div>
+
+
+
+            <div class="graph-controls">
+
+
+                <button
+                    id="pauseGraphButton"
+                    class="secondary-button"
+                >
+                    PAUSE
+                </button>
+
+
+                <button
+                    id="clearGraphButton"
+                    class="secondary-button"
+                >
+                    CLEAR
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="graph-wrapper">
+
+            <canvas id="accelGraph"></canvas>
+
+        </div>
+
+
+
+        <div class="legend">
+
+
+            <div class="legend-item">
+
+                <div
+                    class="legend-colour x-colour"
+                ></div>
+
+                X axis
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <div
+                    class="legend-colour y-colour"
+                ></div>
+
+                Y axis
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <div
+                    class="legend-colour z-colour"
+                ></div>
+
+                Z axis
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            id="graphInfo"
+            class="graph-info"
+        >
+            Waiting for accelerometer data...
+        </div>
+
+
+    </div>
+
 
 
     <!-- =====================================================
@@ -537,13 +853,16 @@
 
     <div class="card debug">
 
+
         <div class="label">
             Last BLE packet
         </div>
 
+
         <div id="rawData">
             Waiting for connection...
         </div>
+
 
     </div>
 
@@ -553,38 +872,65 @@
         class="error"
     ></div>
 
+
 </div>
+
 
 
 <script>
 
+
     // ========================================================
-    // UUIDs FROM OUR M5STACK FIRMWARE
+    // BLE UUIDs
     // ========================================================
 
     const SERVICE_UUID =
         "91bad492-b950-4226-aa2b-4ede9fa42f59";
 
+
     const ACCEL_UUID =
         "ca73b3ba-39f6-4ab3-91ae-186dc9577d99";
 
+
     const TAP_UUID =
         "1c95d5e3-d8f7-4131-a3f1-0dbe5a7d0a01";
+
 
     const WORD_UUID =
         "1c95d5e3-d8f7-4131-a3f1-0dbe5a7d0a02";
 
 
+
     // ========================================================
-    // GLOBAL VARIABLES
+    // BLUETOOTH GLOBALS
     // ========================================================
 
     let bluetoothDevice = null;
 
     let gattServer = null;
 
+
     const decoder =
         new TextDecoder("utf-8");
+
+
+
+    // ========================================================
+    // GRAPH GLOBALS
+    // ========================================================
+
+    const GRAPH_WINDOW_SECONDS = 20;
+
+    const GRAPH_MIN_G = -2;
+
+    const GRAPH_MAX_G = 2;
+
+
+    let graphPaused = false;
+
+
+    let accelHistory = [];
+
 
 
     // ========================================================
@@ -596,25 +942,30 @@
             "connectButton"
         );
 
+
     const statusDot =
         document.getElementById(
             "statusDot"
         );
+
 
     const statusText =
         document.getElementById(
             "statusText"
         );
 
+
     const deviceName =
         document.getElementById(
             "deviceName"
         );
 
+
     const errorMessage =
         document.getElementById(
             "errorMessage"
         );
+
 
     const rawData =
         document.getElementById(
@@ -622,8 +973,37 @@
         );
 
 
+    const graphCanvas =
+        document.getElementById(
+            "accelGraph"
+        );
+
+
+    const graphContext =
+        graphCanvas.getContext("2d");
+
+
+    const pauseGraphButton =
+        document.getElementById(
+            "pauseGraphButton"
+        );
+
+
+    const clearGraphButton =
+        document.getElementById(
+            "clearGraphButton"
+        );
+
+
+    const graphInfo =
+        document.getElementById(
+            "graphInfo"
+        );
+
+
+
     // ========================================================
-    // CONVERT BLE DATAVIEW TO STRING
+    // BLE DATAVIEW -> TEXT
     // ========================================================
 
     function valueToString(value) {
@@ -642,48 +1022,113 @@
     }
 
 
+
     // ========================================================
-    // CONNECTION BUTTON
+    // CONNECT BUTTON
     // ========================================================
 
     connectButton.addEventListener(
+
         "click",
+
         connectBluetooth
     );
 
 
+
     // ========================================================
-    // CONNECT TO M5
+    // GRAPH CONTROLS
+    // ========================================================
+
+    pauseGraphButton.addEventListener(
+
+        "click",
+
+        function () {
+
+            graphPaused =
+                !graphPaused;
+
+
+            if (graphPaused) {
+
+                pauseGraphButton.textContent =
+                    "RESUME";
+
+
+                graphInfo.textContent =
+                    "Graph paused - live values are still updating.";
+
+            }
+
+            else {
+
+                pauseGraphButton.textContent =
+                    "PAUSE";
+
+
+                graphInfo.textContent =
+                    "Graph running.";
+
+            }
+
+        }
+    );
+
+
+
+    clearGraphButton.addEventListener(
+
+        "click",
+
+        function () {
+
+            accelHistory = [];
+
+
+            drawGraph();
+
+
+            graphInfo.textContent =
+                "Graph cleared.";
+
+        }
+    );
+
+
+
+    // ========================================================
+    // CONNECT BLUETOOTH
     // ========================================================
 
     async function connectBluetooth() {
 
-        errorMessage.textContent = "";
+
+        errorMessage.textContent =
+            "";
+
 
         try {
 
-            // ------------------------------------------------
-            // Check browser supports Web Bluetooth
-            // ------------------------------------------------
 
             if (!navigator.bluetooth) {
 
                 throw new Error(
+
                     "Web Bluetooth is not available in this browser."
                 );
             }
+
 
 
             statusText.textContent =
                 "Selecting device...";
 
 
-            // ------------------------------------------------
-            // Android / Chrome Bluetooth chooser
-            // ------------------------------------------------
 
             bluetoothDevice =
                 await navigator.bluetooth.requestDevice({
+
 
                     filters: [
 
@@ -691,18 +1136,19 @@
                             name:
                                 "M5S3-Telemetry"
                         }
+
                     ],
 
+
                     optionalServices: [
+
                         SERVICE_UUID
+
                     ]
 
                 });
 
 
-            // ------------------------------------------------
-            // Detect disconnect
-            // ------------------------------------------------
 
             bluetoothDevice.addEventListener(
 
@@ -710,6 +1156,7 @@
 
                 handleDisconnect
             );
+
 
 
             statusText.textContent =
@@ -720,17 +1167,11 @@
                 bluetoothDevice.name;
 
 
-            // ------------------------------------------------
-            // Connect to GATT server
-            // ------------------------------------------------
 
             gattServer =
                 await bluetoothDevice.gatt.connect();
 
 
-            // ------------------------------------------------
-            // Find our M5 service
-            // ------------------------------------------------
 
             const service =
                 await gattServer.getPrimaryService(
@@ -738,14 +1179,12 @@
                 );
 
 
-            // ------------------------------------------------
-            // Find characteristics
-            // ------------------------------------------------
 
             const accelCharacteristic =
                 await service.getCharacteristic(
                     ACCEL_UUID
                 );
+
 
 
             const tapCharacteristic =
@@ -754,15 +1193,17 @@
                 );
 
 
+
             const wordCharacteristic =
                 await service.getCharacteristic(
                     WORD_UUID
                 );
 
 
-            // ------------------------------------------------
-            // Subscribe to accelerometer
-            // ------------------------------------------------
+
+            // =================================================
+            // ACCEL NOTIFICATIONS
+            // =================================================
 
             await accelCharacteristic
                 .startNotifications();
@@ -777,9 +1218,10 @@
                 );
 
 
-            // ------------------------------------------------
-            // Subscribe to tap counter
-            // ------------------------------------------------
+
+            // =================================================
+            // TAP NOTIFICATIONS
+            // =================================================
 
             await tapCharacteristic
                 .startNotifications();
@@ -794,9 +1236,10 @@
                 );
 
 
-            // ------------------------------------------------
-            // Subscribe to word
-            // ------------------------------------------------
+
+            // =================================================
+            // WORD NOTIFICATIONS
+            // =================================================
 
             await wordCharacteristic
                 .startNotifications();
@@ -811,9 +1254,10 @@
                 );
 
 
-            // ------------------------------------------------
-            // READ INITIAL VALUES
-            // ------------------------------------------------
+
+            // =================================================
+            // INITIAL VALUES
+            // =================================================
 
             const accelInitial =
                 await accelCharacteristic
@@ -821,8 +1265,12 @@
 
 
             updateAccelerometer(
-                valueToString(accelInitial)
+
+                valueToString(
+                    accelInitial
+                )
             );
+
 
 
             const tapInitial =
@@ -831,8 +1279,12 @@
 
 
             updateTap(
-                valueToString(tapInitial)
+
+                valueToString(
+                    tapInitial
+                )
             );
+
 
 
             const wordInitial =
@@ -841,13 +1293,17 @@
 
 
             updateWord(
-                valueToString(wordInitial)
+
+                valueToString(
+                    wordInitial
+                )
             );
 
 
-            // ------------------------------------------------
-            // Connection successful
-            // ------------------------------------------------
+
+            // =================================================
+            // CONNECTED
+            // =================================================
 
             statusText.textContent =
                 "Connected";
@@ -865,11 +1321,18 @@
             connectButton.disabled =
                 true;
 
+
+            graphInfo.textContent =
+                "Receiving live accelerometer data.";
+
         }
+
 
         catch (error) {
 
+
             console.error(error);
+
 
             statusText.textContent =
                 "Disconnected";
@@ -877,15 +1340,19 @@
 
             errorMessage.textContent =
                 error.message;
+
         }
+
     }
 
 
+
     // ========================================================
-    // ACCELEROMETER NOTIFICATION
+    // ACCEL NOTIFICATION
     // ========================================================
 
     function handleAccelerometer(event) {
+
 
         const text =
             valueToString(
@@ -893,22 +1360,29 @@
             );
 
 
-        updateAccelerometer(text);
+        updateAccelerometer(
+            text
+        );
+
     }
 
 
+
     // ========================================================
-    // UPDATE ACCELEROMETER DISPLAY
+    // UPDATE ACCELEROMETER
     // ========================================================
 
     function updateAccelerometer(text) {
+
 
         rawData.textContent =
             "ACCEL: " + text;
 
 
+
         const parts =
             text.split(",");
+
 
 
         if (parts.length !== 3) {
@@ -917,29 +1391,44 @@
         }
 
 
+
         const x =
-            parseFloat(parts[0]);
+            parseFloat(
+                parts[0]
+            );
+
 
         const y =
-            parseFloat(parts[1]);
+            parseFloat(
+                parts[1]
+            );
+
 
         const z =
-            parseFloat(parts[2]);
+            parseFloat(
+                parts[2]
+            );
+
 
 
         if (
+
             Number.isNaN(x) ||
+
             Number.isNaN(y) ||
+
             Number.isNaN(z)
+
         ) {
 
             return;
         }
 
 
-        // ----------------------------------------------------
-        // Numeric values
-        // ----------------------------------------------------
+
+        // =====================================================
+        // NUMERIC VALUES
+        // =====================================================
 
         document.getElementById(
             "xValue"
@@ -959,28 +1448,32 @@
             z.toFixed(2);
 
 
+
         document.getElementById(
             "xBarNumber"
         ).textContent =
-            x.toFixed(2) + " g";
+            x.toFixed(2)
+            + " g";
 
 
         document.getElementById(
             "yBarNumber"
         ).textContent =
-            y.toFixed(2) + " g";
+            y.toFixed(2)
+            + " g";
 
 
         document.getElementById(
             "zBarNumber"
         ).textContent =
-            z.toFixed(2) + " g";
+            z.toFixed(2)
+            + " g";
 
 
-        // ----------------------------------------------------
-        // Moving graphical markers
-        // Assume range -2 g to +2 g
-        // ----------------------------------------------------
+
+        // =====================================================
+        // LIVE BARS
+        // =====================================================
 
         updateMarker(
             "xMarker",
@@ -998,11 +1491,25 @@
             "zMarker",
             z
         );
+
+
+
+        // =====================================================
+        // GRAPH
+        // =====================================================
+
+        addGraphPoint(
+            x,
+            y,
+            z
+        );
+
     }
 
 
+
     // ========================================================
-    // MOVE GRAPHICAL MARKER
+    // BAR MARKER
     // ========================================================
 
     function updateMarker(
@@ -1010,11 +1517,12 @@
         value
     ) {
 
-        // Clamp to -2g ... +2g
 
         let clamped =
             Math.max(
+
                 -2,
+
                 Math.min(
                     2,
                     value
@@ -1022,29 +1530,750 @@
             );
 
 
-        // Convert:
-        //
-        // -2g = 0%
-        //  0g = 50%
-        // +2g = 100%
 
         const percentage =
             ((clamped + 2) / 4)
             * 100;
 
 
+
         document.getElementById(
             elementID
         ).style.left =
             percentage + "%";
+
     }
 
 
+
     // ========================================================
-    // TAP NOTIFICATION
+    // ADD GRAPH POINT
+    // ========================================================
+
+    function addGraphPoint(
+        x,
+        y,
+        z
+    ) {
+
+
+        if (graphPaused) {
+
+            return;
+        }
+
+
+
+        const now =
+            performance.now()
+            / 1000;
+
+
+
+        accelHistory.push({
+
+            time: now,
+
+            x: x,
+
+            y: y,
+
+            z: z
+
+        });
+
+
+
+        const cutoff =
+            now
+            - GRAPH_WINDOW_SECONDS;
+
+
+
+        while (
+
+            accelHistory.length > 0 &&
+
+            accelHistory[0].time
+                < cutoff
+
+        ) {
+
+            accelHistory.shift();
+
+        }
+
+
+
+        drawGraph();
+
+    }
+
+
+
+    // ========================================================
+    // SIZE CANVAS
+    // ========================================================
+
+    function resizeCanvas() {
+
+
+        const rectangle =
+            graphCanvas
+                .getBoundingClientRect();
+
+
+
+        const pixelRatio =
+            window.devicePixelRatio
+            || 1;
+
+
+
+        const width =
+            Math.round(
+                rectangle.width
+                * pixelRatio
+            );
+
+
+        const height =
+            Math.round(
+                rectangle.height
+                * pixelRatio
+            );
+
+
+
+        if (
+
+            graphCanvas.width
+                !== width ||
+
+            graphCanvas.height
+                !== height
+
+        ) {
+
+
+            graphCanvas.width =
+                width;
+
+
+            graphCanvas.height =
+                height;
+
+        }
+
+
+
+        graphContext.setTransform(
+
+            pixelRatio,
+
+            0,
+
+            0,
+
+            pixelRatio,
+
+            0,
+
+            0
+
+        );
+
+
+        return {
+
+            width:
+                rectangle.width,
+
+            height:
+                rectangle.height
+
+        };
+
+    }
+
+
+
+    // ========================================================
+    // DRAW GRAPH
+    // ========================================================
+
+    function drawGraph() {
+
+
+        const size =
+            resizeCanvas();
+
+
+
+        const width =
+            size.width;
+
+
+        const height =
+            size.height;
+
+
+
+        graphContext.clearRect(
+
+            0,
+
+            0,
+
+            width,
+
+            height
+
+        );
+
+
+
+        // =====================================================
+        // GRAPH AREA
+        // =====================================================
+
+        const left =
+            45;
+
+
+        const right =
+            15;
+
+
+        const top =
+            15;
+
+
+        const bottom =
+            32;
+
+
+
+        const plotWidth =
+            width
+            - left
+            - right;
+
+
+        const plotHeight =
+            height
+            - top
+            - bottom;
+
+
+
+        // =====================================================
+        // CURRENT TIME
+        // =====================================================
+
+        let currentTime =
+            performance.now()
+            / 1000;
+
+
+
+        if (accelHistory.length > 0) {
+
+            currentTime =
+                accelHistory[
+                    accelHistory.length - 1
+                ].time;
+
+        }
+
+
+
+        const startTime =
+            currentTime
+            - GRAPH_WINDOW_SECONDS;
+
+
+
+        // =====================================================
+        // BACKGROUND
+        // =====================================================
+
+        graphContext.fillStyle =
+            "#13191f";
+
+
+        graphContext.fillRect(
+
+            0,
+
+            0,
+
+            width,
+
+            height
+
+        );
+
+
+
+        // =====================================================
+        // HORIZONTAL GRID
+        // =====================================================
+
+        graphContext.font =
+            "12px Arial";
+
+
+        graphContext.textAlign =
+            "right";
+
+
+        graphContext.textBaseline =
+            "middle";
+
+
+
+        for (
+
+            let g = GRAPH_MIN_G;
+
+            g <= GRAPH_MAX_G;
+
+            g++
+
+        ) {
+
+
+            const y =
+                valueToGraphY(
+                    g,
+                    top,
+                    plotHeight
+                );
+
+
+
+            graphContext.beginPath();
+
+
+            graphContext.moveTo(
+                left,
+                y
+            );
+
+
+            graphContext.lineTo(
+                left + plotWidth,
+                y
+            );
+
+
+
+            if (g === 0) {
+
+                graphContext.strokeStyle =
+                    "#68737e";
+
+
+                graphContext.lineWidth =
+                    1.5;
+
+            }
+
+            else {
+
+                graphContext.strokeStyle =
+                    "#303a44";
+
+
+                graphContext.lineWidth =
+                    1;
+
+            }
+
+
+
+            graphContext.stroke();
+
+
+
+            graphContext.fillStyle =
+                "#9da7b1";
+
+
+            graphContext.fillText(
+
+                g + "g",
+
+                left - 8,
+
+                y
+
+            );
+
+        }
+
+
+
+        // =====================================================
+        // VERTICAL TIME GRID
+        // =====================================================
+
+        graphContext.textAlign =
+            "center";
+
+
+        graphContext.textBaseline =
+            "top";
+
+
+
+        for (
+
+            let seconds = 0;
+
+            seconds <= GRAPH_WINDOW_SECONDS;
+
+            seconds += 5
+
+        ) {
+
+
+            const x =
+                left
+                +
+                (
+                    seconds
+                    /
+                    GRAPH_WINDOW_SECONDS
+                )
+                * plotWidth;
+
+
+
+            graphContext.beginPath();
+
+
+            graphContext.moveTo(
+                x,
+                top
+            );
+
+
+            graphContext.lineTo(
+                x,
+                top + plotHeight
+            );
+
+
+            graphContext.strokeStyle =
+                "#252d35";
+
+
+            graphContext.lineWidth =
+                1;
+
+
+            graphContext.stroke();
+
+
+
+            const timeLabel =
+                seconds
+                - GRAPH_WINDOW_SECONDS;
+
+
+
+            graphContext.fillStyle =
+                "#9da7b1";
+
+
+            graphContext.fillText(
+
+                timeLabel === 0
+                    ? "now"
+                    : timeLabel + "s",
+
+                x,
+
+                top
+                + plotHeight
+                + 8
+
+            );
+
+        }
+
+
+
+        // =====================================================
+        // DRAW DATA
+        // =====================================================
+
+        drawSeries(
+
+            "x",
+
+            "#3aa0ff",
+
+            startTime,
+
+            left,
+
+            top,
+
+            plotWidth,
+
+            plotHeight
+
+        );
+
+
+
+        drawSeries(
+
+            "y",
+
+            "#3ed67b",
+
+            startTime,
+
+            left,
+
+            top,
+
+            plotWidth,
+
+            plotHeight
+
+        );
+
+
+
+        drawSeries(
+
+            "z",
+
+            "#ffca3a",
+
+            startTime,
+
+            left,
+
+            top,
+
+            plotWidth,
+
+            plotHeight
+
+        );
+
+    }
+
+
+
+    // ========================================================
+    // DRAW ONE AXIS LINE
+    // ========================================================
+
+    function drawSeries(
+
+        property,
+
+        colour,
+
+        startTime,
+
+        left,
+
+        top,
+
+        plotWidth,
+
+        plotHeight
+
+    ) {
+
+
+        if (accelHistory.length < 2) {
+
+            return;
+        }
+
+
+
+        graphContext.beginPath();
+
+
+
+        let started =
+            false;
+
+
+
+        for (
+
+            const point
+            of accelHistory
+
+        ) {
+
+
+            if (
+
+                point.time
+                < startTime
+
+            ) {
+
+                continue;
+            }
+
+
+
+            const x =
+                left
+                +
+                (
+                    (
+                        point.time
+                        - startTime
+                    )
+                    /
+                    GRAPH_WINDOW_SECONDS
+                )
+                * plotWidth;
+
+
+
+            const y =
+                valueToGraphY(
+
+                    point[property],
+
+                    top,
+
+                    plotHeight
+
+                );
+
+
+
+            if (!started) {
+
+                graphContext.moveTo(
+                    x,
+                    y
+                );
+
+
+                started =
+                    true;
+
+            }
+
+            else {
+
+                graphContext.lineTo(
+                    x,
+                    y
+                );
+
+            }
+
+        }
+
+
+
+        graphContext.strokeStyle =
+            colour;
+
+
+        graphContext.lineWidth =
+            2;
+
+
+        graphContext.lineJoin =
+            "round";
+
+
+        graphContext.lineCap =
+            "round";
+
+
+        graphContext.stroke();
+
+    }
+
+
+
+    // ========================================================
+    // CONVERT G VALUE -> GRAPH Y
+    // ========================================================
+
+    function valueToGraphY(
+
+        value,
+
+        top,
+
+        plotHeight
+
+    ) {
+
+
+        const clamped =
+            Math.max(
+
+                GRAPH_MIN_G,
+
+                Math.min(
+
+                    GRAPH_MAX_G,
+
+                    value
+
+                )
+
+            );
+
+
+
+        const fraction =
+
+            (
+                GRAPH_MAX_G
+                - clamped
+            )
+
+            /
+
+            (
+                GRAPH_MAX_G
+                - GRAPH_MIN_G
+            );
+
+
+
+        return (
+
+            top
+            +
+            fraction
+            * plotHeight
+
+        );
+
+    }
+
+
+
+    // ========================================================
+    // TAP
     // ========================================================
 
     function handleTap(event) {
+
 
         const text =
             valueToString(
@@ -1052,11 +2281,16 @@
             );
 
 
-        updateTap(text);
+        updateTap(
+            text
+        );
+
     }
 
 
+
     function updateTap(text) {
+
 
         document.getElementById(
             "tapValue"
@@ -1066,14 +2300,17 @@
 
         rawData.textContent =
             "TAP: " + text;
+
     }
 
 
+
     // ========================================================
-    // WORD NOTIFICATION
+    // WORD
     // ========================================================
 
     function handleWord(event) {
+
 
         const text =
             valueToString(
@@ -1081,11 +2318,16 @@
             );
 
 
-        updateWord(text);
+        updateWord(
+            text
+        );
+
     }
 
 
+
     function updateWord(text) {
+
 
         document.getElementById(
             "wordValue"
@@ -1095,14 +2337,17 @@
 
         rawData.textContent =
             "WORD: " + text;
+
     }
 
 
+
     // ========================================================
-    // DISCONNECTION
+    // DISCONNECT
     // ========================================================
 
     function handleDisconnect() {
+
 
         statusText.textContent =
             "Disconnected";
@@ -1123,9 +2368,39 @@
 
         deviceName.textContent =
             "No device";
+
+
+        graphInfo.textContent =
+            "Bluetooth disconnected.";
+
     }
+
+
+
+    // ========================================================
+    // WINDOW RESIZE
+    // ========================================================
+
+    window.addEventListener(
+
+        "resize",
+
+        drawGraph
+
+    );
+
+
+
+    // ========================================================
+    // INITIAL EMPTY GRAPH
+    // ========================================================
+
+    drawGraph();
+
 
 </script>
 
+
 </body>
+
 </html>
