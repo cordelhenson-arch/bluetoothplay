@@ -230,7 +230,7 @@
 
 
         /* =====================================================
-           LOG
+           DEBUG LOG
         ===================================================== */
 
         #log {
@@ -261,6 +261,8 @@
             color: #ff6b6b;
 
             margin-top: 15px;
+
+            white-space: pre-wrap;
         }
 
 
@@ -532,11 +534,11 @@ Waiting for connection...
     // ========================================================
     // BLE SETTINGS
     //
-    // THESE MUST MATCH THE ESP32-S3 FIRMWARE
+    // MUST MATCH THE ESP32-S3 FIRMWARE
     // ========================================================
 
 
-    const DEVICE_NAME =
+    const EXPECTED_DEVICE_NAME =
         "ESP32-Thermo8-Test";
 
 
@@ -748,7 +750,7 @@ Waiting for connection...
 
                 throw new Error(
 
-                    "Web Bluetooth is not available in this browser."
+                    "Web Bluetooth is not available in this browser. Use Chrome on Android."
 
                 );
             }
@@ -763,8 +765,25 @@ Waiting for connection...
             );
 
 
+            addLog(
+                "All nearby BLE devices will be shown."
+            );
+
+
             // ------------------------------------------------
             // DEVICE SELECTION
+            //
+            // IMPORTANT:
+            //
+            // We deliberately do NOT filter by device name.
+            //
+            // Chrome will therefore show all nearby BLE
+            // devices.
+            //
+            // Select:
+            //
+            // ESP32-Thermo8-Test
+            //
             // ------------------------------------------------
 
 
@@ -772,14 +791,7 @@ Waiting for connection...
 
                 await navigator.bluetooth.requestDevice({
 
-                    filters: [
-
-                        {
-                            name:
-                                DEVICE_NAME
-                        }
-
-                    ],
+                    acceptAllDevices: true,
 
                     optionalServices: [
 
@@ -790,13 +802,59 @@ Waiting for connection...
                 });
 
 
+            // ------------------------------------------------
+            // DEVICE NAME
+            // ------------------------------------------------
+
+
+            const selectedName =
+
+                bluetoothDevice.name
+
+                ||
+
+                "Unnamed BLE device";
+
+
             addLog(
 
                 "Selected device: "
                 +
-                bluetoothDevice.name
+                selectedName
 
             );
+
+
+            deviceName.textContent =
+                selectedName;
+
+
+            // ------------------------------------------------
+            // WARN IF DIFFERENT DEVICE SELECTED
+            // ------------------------------------------------
+
+
+            if (
+                bluetoothDevice.name
+                &&
+                bluetoothDevice.name
+                !==
+                EXPECTED_DEVICE_NAME
+            ) {
+
+
+                addLog(
+
+                    "WARNING: Expected "
+                    +
+                    EXPECTED_DEVICE_NAME
+                    +
+                    " but selected "
+                    +
+                    bluetoothDevice.name
+
+                );
+            }
 
 
             // ------------------------------------------------
@@ -814,16 +872,12 @@ Waiting for connection...
 
 
             // ------------------------------------------------
-            // CONNECT GATT
+            // CONNECT TO GATT SERVER
             // ------------------------------------------------
 
 
             statusText.textContent =
                 "Connecting...";
-
-
-            deviceName.textContent =
-                bluetoothDevice.name;
 
 
             addLog(
@@ -841,18 +895,27 @@ Waiting for connection...
 
 
             // ------------------------------------------------
-            // GET SERVICE
+            // FIND SERVICE
             // ------------------------------------------------
 
 
             addLog(
-                "Looking for thermocouple test service..."
+
+                "Looking for service:"
+                +
+                "\n"
+                +
+                SERVICE_UUID
+
             );
 
 
             const service =
+
                 await gattServer.getPrimaryService(
+
                     SERVICE_UUID
+
                 );
 
 
@@ -862,8 +925,19 @@ Waiting for connection...
 
 
             // ------------------------------------------------
-            // GET CHARACTERISTIC
+            // FIND CHARACTERISTIC
             // ------------------------------------------------
+
+
+            addLog(
+
+                "Looking for characteristic:"
+                +
+                "\n"
+                +
+                TEST_CHARACTERISTIC_UUID
+
+            );
 
 
             testCharacteristic =
@@ -881,7 +955,7 @@ Waiting for connection...
 
 
             // ------------------------------------------------
-            // START NOTIFICATIONS
+            // ENABLE NOTIFICATIONS
             // ------------------------------------------------
 
 
@@ -909,6 +983,11 @@ Waiting for connection...
             // ------------------------------------------------
 
 
+            addLog(
+                "Reading initial characteristic value..."
+            );
+
+
             const initialValue =
 
                 await testCharacteristic
@@ -916,6 +995,7 @@ Waiting for connection...
 
 
             const initialText =
+
                 valueToString(
                     initialValue
                 );
@@ -975,6 +1055,19 @@ Waiting for connection...
                 "Disconnected";
 
 
+            statusDot.classList.remove(
+                "connected"
+            );
+
+
+            connectButton.textContent =
+                "CONNECT TO ESP32";
+
+
+            connectButton.disabled =
+                false;
+
+
             errorMessage.textContent =
                 error.message;
 
@@ -993,7 +1086,7 @@ Waiting for connection...
 
 
     // ========================================================
-    // TEST CHARACTERISTIC NOTIFICATION
+    // BLE NOTIFICATION
     // ========================================================
 
 
@@ -1001,8 +1094,11 @@ Waiting for connection...
 
 
         const text =
+
             valueToString(
+
                 event.target.value
+
             );
 
 
