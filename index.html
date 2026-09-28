@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>M5S3 Telemetry</title>
+    <title>ESP32 Thermocouple BLE Test</title>
 
     <style>
 
@@ -19,6 +20,7 @@
         }
 
         body {
+
             margin: 0;
             padding: 20px;
 
@@ -32,22 +34,27 @@
         }
 
         .container {
+
             max-width: 800px;
             margin: auto;
         }
 
         h1 {
+
             margin-bottom: 5px;
         }
 
         .subtitle {
+
             color: #9da7b1;
+
             margin-top: 0;
             margin-bottom: 25px;
         }
 
+
         /* =====================================================
-           CONNECTION
+           CONNECTION PANEL
         ===================================================== */
 
         .connection-panel {
@@ -90,8 +97,14 @@
         }
 
         .status-dot.connected {
+
             background: #38c172;
         }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
 
         button {
 
@@ -113,18 +126,18 @@
         }
 
         button:disabled {
+
             opacity: 0.5;
+
+            cursor: default;
         }
 
-        .secondary-button {
-            background: #39434d;
-        }
 
         /* =====================================================
            CARDS
         ===================================================== */
 
-        .top-grid {
+        .grid {
 
             display: grid;
 
@@ -143,6 +156,8 @@
             border-radius: 12px;
 
             padding: 20px;
+
+            margin-bottom: 15px;
         }
 
         .label {
@@ -165,259 +180,80 @@
             margin-top: 8px;
         }
 
-        #wordValue {
-            color: #ffd43b;
+        #testValue {
+
+            color: #3ed67b;
         }
+
+        #packetCount {
+
+            color: #3aa0ff;
+        }
+
 
         /* =====================================================
-           ACCELEROMETER VALUES
+           BLE DETAILS
         ===================================================== */
 
-        .accelerometer {
-            margin-top: 15px;
+        .detail-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid #303a44;
         }
 
-        .axis-grid {
+        .detail-row:last-child {
 
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 12px;
-
-            margin-top: 20px;
-
-            margin-bottom: 25px;
+            border-bottom: none;
         }
 
-        .axis-card {
+        .detail-name {
 
-            background: #252d35;
-
-            border-radius: 10px;
-
-            padding: 16px;
-
-            text-align: center;
-        }
-
-        .axis-name {
             color: #9da7b1;
         }
 
-        .axis-value {
-
-            font-size: 28px;
-
-            font-weight: bold;
-
-            margin-top: 5px;
-        }
-
-        /* =====================================================
-           LIVE BARS
-        ===================================================== */
-
-        .bar-row {
-
-            display: grid;
-
-            grid-template-columns:
-                30px 1fr 70px;
-
-            align-items: center;
-
-            gap: 10px;
-
-            margin: 16px 0;
-        }
-
-        .track {
-
-            position: relative;
-
-            height: 14px;
-
-            border-radius: 7px;
-
-            background: #303a44;
-        }
-
-        .centre-line {
-
-            position: absolute;
-
-            left: 50%;
-
-            top: -4px;
-
-            height: 22px;
-
-            width: 2px;
-
-            background: #68737e;
-        }
-
-        .marker {
-
-            position: absolute;
-
-            top: -4px;
-
-            width: 10px;
-
-            height: 22px;
-
-            border-radius: 4px;
-
-            background: #2584ff;
-
-            transform: translateX(-50%);
-
-            left: 50%;
-
-            transition: left 0.08s linear;
-        }
-
-        .bar-number {
+        .detail-value {
 
             text-align: right;
 
             font-family: monospace;
+
+            word-break: break-all;
         }
+
 
         /* =====================================================
-           GRAPH
+           LOG
         ===================================================== */
 
-        .graph-card {
+        #log {
+
+            min-height: 180px;
+
+            max-height: 350px;
+
+            overflow-y: auto;
+
+            padding: 15px;
 
             margin-top: 15px;
-        }
-
-        .graph-header {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            flex-wrap: wrap;
-
-            gap: 12px;
-
-            margin-bottom: 15px;
-        }
-
-        .graph-controls {
-
-            display: flex;
-
-            gap: 8px;
-
-            flex-wrap: wrap;
-        }
-
-        .graph-controls button {
-
-            padding: 8px 14px;
-
-            font-size: 14px;
-        }
-
-        .graph-wrapper {
-
-            width: 100%;
-
-            height: 300px;
 
             background: #13191f;
 
-            border-radius: 10px;
-
-            overflow: hidden;
-        }
-
-        #accelGraph {
-
-            width: 100%;
-
-            height: 100%;
-
-            display: block;
-        }
-
-        .legend {
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 25px;
-
-            flex-wrap: wrap;
-
-            margin-top: 14px;
-
-            font-size: 14px;
-        }
-
-        .legend-item {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-        }
-
-        .legend-colour {
-
-            width: 22px;
-
-            height: 4px;
-
-            border-radius: 2px;
-        }
-
-        .x-colour {
-            background: #3aa0ff;
-        }
-
-        .y-colour {
-            background: #3ed67b;
-        }
-
-        .z-colour {
-            background: #ffca3a;
-        }
-
-        .graph-info {
-
-            text-align: center;
-
-            margin-top: 10px;
-
-            color: #9da7b1;
-
-            font-size: 13px;
-        }
-
-        /* =====================================================
-           DEBUG
-        ===================================================== */
-
-        .debug {
-
-            margin-top: 15px;
+            border-radius: 8px;
 
             font-family: monospace;
 
             font-size: 13px;
 
-            color: #9da7b1;
+            white-space: pre-wrap;
         }
 
         .error {
@@ -427,13 +263,15 @@
             margin-top: 15px;
         }
 
+
         /* =====================================================
            MOBILE
         ===================================================== */
 
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
 
             body {
+
                 padding: 12px;
             }
 
@@ -445,16 +283,25 @@
             }
 
             .connection-panel button {
+
                 width: 100%;
             }
 
-            .axis-grid {
+            .grid {
 
                 grid-template-columns: 1fr;
             }
 
-            .graph-wrapper {
-                height: 260px;
+            .detail-row {
+
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+            .detail-value {
+
+                text-align: left;
             }
         }
 
@@ -469,13 +316,12 @@
 <div class="container">
 
 
-    <h1>M5Stack CoreS3</h1>
+    <h1>ESP32 Thermocouple Reader</h1>
 
 
     <p class="subtitle">
-        Live Bluetooth Telemetry
+        Bluetooth LE diagnostic test
     </p>
-
 
 
     <!-- =====================================================
@@ -504,7 +350,11 @@
 
                 <div
                     id="deviceName"
-                    style="color:#9da7b1; font-size:13px;"
+                    style="
+                        color:#9da7b1;
+                        font-size:13px;
+                        margin-top:3px;
+                    "
                 >
                     No device
                 </div>
@@ -517,31 +367,30 @@
 
 
         <button id="connectButton">
-            CONNECT TO M5
+            CONNECT TO ESP32
         </button>
 
 
     </div>
 
 
-
     <!-- =====================================================
-         WORD + TAPS
+         LIVE VALUES
     ====================================================== -->
 
-    <div class="top-grid">
+    <div class="grid">
 
 
         <div class="card">
 
 
             <div class="label">
-                Current State
+                Latest BLE Value
             </div>
 
 
             <div
-                id="wordValue"
+                id="testValue"
                 class="big-value"
             >
                 ----
@@ -551,17 +400,16 @@
         </div>
 
 
-
         <div class="card">
 
 
             <div class="label">
-                Screen Taps
+                Packets Received
             </div>
 
 
             <div
-                id="tapValue"
+                id="packetCount"
                 class="big-value"
             >
                 0
@@ -574,293 +422,95 @@
     </div>
 
 
-
     <!-- =====================================================
-         ACCELEROMETER
+         BLE INFORMATION
     ====================================================== -->
 
-    <div class="card accelerometer">
+    <div class="card">
 
 
         <div class="label">
-            Accelerometer
-        </div>
-
-
-
-        <div class="axis-grid">
-
-
-            <div class="axis-card">
-
-                <div class="axis-name">
-                    X AXIS
-                </div>
-
-                <div
-                    id="xValue"
-                    class="axis-value"
-                >
-                    0.00
-                </div>
-
-            </div>
-
-
-
-            <div class="axis-card">
-
-                <div class="axis-name">
-                    Y AXIS
-                </div>
-
-                <div
-                    id="yValue"
-                    class="axis-value"
-                >
-                    0.00
-                </div>
-
-            </div>
-
-
-
-            <div class="axis-card">
-
-                <div class="axis-name">
-                    Z AXIS
-                </div>
-
-                <div
-                    id="zValue"
-                    class="axis-value"
-                >
-                    0.00
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- X BAR -->
-
-        <div class="bar-row">
-
-            <strong>X</strong>
-
-            <div class="track">
-
-                <div class="centre-line"></div>
-
-                <div
-                    id="xMarker"
-                    class="marker"
-                ></div>
-
-            </div>
-
-            <div
-                id="xBarNumber"
-                class="bar-number"
-            >
-                0.00 g
-            </div>
-
-        </div>
-
-
-
-        <!-- Y BAR -->
-
-        <div class="bar-row">
-
-            <strong>Y</strong>
-
-            <div class="track">
-
-                <div class="centre-line"></div>
-
-                <div
-                    id="yMarker"
-                    class="marker"
-                ></div>
-
-            </div>
-
-            <div
-                id="yBarNumber"
-                class="bar-number"
-            >
-                0.00 g
-            </div>
-
-        </div>
-
-
-
-        <!-- Z BAR -->
-
-        <div class="bar-row">
-
-            <strong>Z</strong>
-
-            <div class="track">
-
-                <div class="centre-line"></div>
-
-                <div
-                    id="zMarker"
-                    class="marker"
-                ></div>
-
-            </div>
-
-            <div
-                id="zBarNumber"
-                class="bar-number"
-            >
-                0.00 g
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================================
-         LIVE GRAPH
-    ====================================================== -->
-
-    <div class="card graph-card">
-
-
-        <div class="graph-header">
-
-
-            <div>
-
-                <div class="label">
-                    Live Accelerometer Graph
-                </div>
-
-                <div
-                    style="
-                        margin-top:5px;
-                        color:#9da7b1;
-                        font-size:13px;
-                    "
-                >
-                    Rolling 20 second history
-                </div>
-
-            </div>
-
-
-
-            <div class="graph-controls">
-
-
-                <button
-                    id="pauseGraphButton"
-                    class="secondary-button"
-                >
-                    PAUSE
-                </button>
-
-
-                <button
-                    id="clearGraphButton"
-                    class="secondary-button"
-                >
-                    CLEAR
-                </button>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <div class="graph-wrapper">
-
-            <canvas id="accelGraph"></canvas>
-
-        </div>
-
-
-
-        <div class="legend">
-
-
-            <div class="legend-item">
-
-                <div
-                    class="legend-colour x-colour"
-                ></div>
-
-                X axis
-
-            </div>
-
-
-            <div class="legend-item">
-
-                <div
-                    class="legend-colour y-colour"
-                ></div>
-
-                Y axis
-
-            </div>
-
-
-            <div class="legend-item">
-
-                <div
-                    class="legend-colour z-colour"
-                ></div>
-
-                Z axis
-
-            </div>
-
-
+            BLE Configuration
         </div>
 
 
         <div
-            id="graphInfo"
-            class="graph-info"
+            style="
+                margin-top:15px;
+            "
         >
-            Waiting for accelerometer data...
+
+
+            <div class="detail-row">
+
+
+                <div class="detail-name">
+                    Expected device
+                </div>
+
+
+                <div class="detail-value">
+                    ESP32-Thermo8-Test
+                </div>
+
+
+            </div>
+
+
+            <div class="detail-row">
+
+
+                <div class="detail-name">
+                    Service UUID
+                </div>
+
+
+                <div
+                    id="serviceDisplay"
+                    class="detail-value"
+                ></div>
+
+
+            </div>
+
+
+            <div class="detail-row">
+
+
+                <div class="detail-name">
+                    Characteristic UUID
+                </div>
+
+
+                <div
+                    id="characteristicDisplay"
+                    class="detail-value"
+                ></div>
+
+
+            </div>
+
+
         </div>
 
 
     </div>
 
 
-
     <!-- =====================================================
-         DEBUG
+         DEBUG LOG
     ====================================================== -->
 
-    <div class="card debug">
+    <div class="card">
 
 
         <div class="label">
-            Last BLE packet
+            BLE Diagnostic Log
         </div>
 
 
-        <div id="rawData">
-            Waiting for connection...
+        <div id="log">
+Waiting for connection...
         </div>
 
 
@@ -876,66 +526,59 @@
 </div>
 
 
-
 <script>
 
 
     // ========================================================
-    // BLE UUIDs
+    // BLE SETTINGS
+    //
+    // THESE MUST MATCH THE ESP32-S3 FIRMWARE
     // ========================================================
 
+
+    const DEVICE_NAME =
+        "ESP32-Thermo8-Test";
+
+
     const SERVICE_UUID =
-        "91bad492-b950-4226-aa2b-4ede9fa42f59";
+        "91bad492-b950-4226-aa2b-4ede9fa42f70";
 
 
-    const ACCEL_UUID =
-        "ca73b3ba-39f6-4ab3-91ae-186dc9577d99";
-
-
-    const TAP_UUID =
-        "1c95d5e3-d8f7-4131-a3f1-0dbe5a7d0a01";
-
-
-    const WORD_UUID =
-        "1c95d5e3-d8f7-4131-a3f1-0dbe5a7d0a02";
-
+    const TEST_CHARACTERISTIC_UUID =
+        "ca73b3ba-39f6-4ab3-91ae-186dc9577f01";
 
 
     // ========================================================
     // BLUETOOTH GLOBALS
     // ========================================================
 
-    let bluetoothDevice = null;
 
-    let gattServer = null;
+    let bluetoothDevice =
+        null;
+
+
+    let gattServer =
+        null;
+
+
+    let testCharacteristic =
+        null;
+
+
+    let receivedPackets =
+        0;
 
 
     const decoder =
-        new TextDecoder("utf-8");
-
-
-
-    // ========================================================
-    // GRAPH GLOBALS
-    // ========================================================
-
-    const GRAPH_WINDOW_SECONDS = 20;
-
-    const GRAPH_MIN_G = -2;
-
-    const GRAPH_MAX_G = 2;
-
-
-    let graphPaused = false;
-
-
-    let accelHistory = [];
-
+        new TextDecoder(
+            "utf-8"
+        );
 
 
     // ========================================================
     // HTML ELEMENTS
     // ========================================================
+
 
     const connectButton =
         document.getElementById(
@@ -961,52 +604,94 @@
         );
 
 
+    const testValue =
+        document.getElementById(
+            "testValue"
+        );
+
+
+    const packetCount =
+        document.getElementById(
+            "packetCount"
+        );
+
+
     const errorMessage =
         document.getElementById(
             "errorMessage"
         );
 
 
-    const rawData =
+    const log =
         document.getElementById(
-            "rawData"
+            "log"
         );
-
-
-    const graphCanvas =
-        document.getElementById(
-            "accelGraph"
-        );
-
-
-    const graphContext =
-        graphCanvas.getContext("2d");
-
-
-    const pauseGraphButton =
-        document.getElementById(
-            "pauseGraphButton"
-        );
-
-
-    const clearGraphButton =
-        document.getElementById(
-            "clearGraphButton"
-        );
-
-
-    const graphInfo =
-        document.getElementById(
-            "graphInfo"
-        );
-
 
 
     // ========================================================
-    // BLE DATAVIEW -> TEXT
+    // DISPLAY UUIDs
     // ========================================================
+
+
+    document.getElementById(
+        "serviceDisplay"
+    ).textContent =
+        SERVICE_UUID;
+
+
+    document.getElementById(
+        "characteristicDisplay"
+    ).textContent =
+        TEST_CHARACTERISTIC_UUID;
+
+
+    // ========================================================
+    // LOG FUNCTION
+    // ========================================================
+
+
+    function addLog(message) {
+
+
+        const now =
+            new Date();
+
+
+        const time =
+            now.toLocaleTimeString();
+
+
+        if (
+            log.textContent.trim()
+            ===
+            "Waiting for connection..."
+        ) {
+
+            log.textContent =
+                "";
+        }
+
+
+        log.textContent +=
+            "[" +
+            time +
+            "] " +
+            message +
+            "\n";
+
+
+        log.scrollTop =
+            log.scrollHeight;
+    }
+
+
+    // ========================================================
+    // BLE VALUE -> STRING
+    // ========================================================
+
 
     function valueToString(value) {
+
 
         return decoder.decode(
 
@@ -1017,89 +702,31 @@
                 value.byteOffset,
 
                 value.byteLength
+
             )
+
         );
     }
-
 
 
     // ========================================================
     // CONNECT BUTTON
     // ========================================================
 
+
     connectButton.addEventListener(
 
         "click",
 
         connectBluetooth
+
     );
-
-
-
-    // ========================================================
-    // GRAPH CONTROLS
-    // ========================================================
-
-    pauseGraphButton.addEventListener(
-
-        "click",
-
-        function () {
-
-            graphPaused =
-                !graphPaused;
-
-
-            if (graphPaused) {
-
-                pauseGraphButton.textContent =
-                    "RESUME";
-
-
-                graphInfo.textContent =
-                    "Graph paused - live values are still updating.";
-
-            }
-
-            else {
-
-                pauseGraphButton.textContent =
-                    "PAUSE";
-
-
-                graphInfo.textContent =
-                    "Graph running.";
-
-            }
-
-        }
-    );
-
-
-
-    clearGraphButton.addEventListener(
-
-        "click",
-
-        function () {
-
-            accelHistory = [];
-
-
-            drawGraph();
-
-
-            graphInfo.textContent =
-                "Graph cleared.";
-
-        }
-    );
-
 
 
     // ========================================================
     // CONNECT BLUETOOTH
     // ========================================================
+
 
     async function connectBluetooth() {
 
@@ -1111,34 +738,48 @@
         try {
 
 
+            // ------------------------------------------------
+            // CHECK WEB BLUETOOTH
+            // ------------------------------------------------
+
+
             if (!navigator.bluetooth) {
+
 
                 throw new Error(
 
                     "Web Bluetooth is not available in this browser."
+
                 );
             }
-
 
 
             statusText.textContent =
                 "Selecting device...";
 
 
+            addLog(
+                "Opening Bluetooth device selector."
+            );
+
+
+            // ------------------------------------------------
+            // DEVICE SELECTION
+            // ------------------------------------------------
+
 
             bluetoothDevice =
-                await navigator.bluetooth.requestDevice({
 
+                await navigator.bluetooth.requestDevice({
 
                     filters: [
 
                         {
                             name:
-                                "M5S3-Telemetry"
+                                DEVICE_NAME
                         }
 
                     ],
-
 
                     optionalServices: [
 
@@ -1149,14 +790,32 @@
                 });
 
 
+            addLog(
+
+                "Selected device: "
+                +
+                bluetoothDevice.name
+
+            );
+
+
+            // ------------------------------------------------
+            // DISCONNECT EVENT
+            // ------------------------------------------------
+
 
             bluetoothDevice.addEventListener(
 
                 "gattserverdisconnected",
 
                 handleDisconnect
+
             );
 
+
+            // ------------------------------------------------
+            // CONNECT GATT
+            // ------------------------------------------------
 
 
             statusText.textContent =
@@ -1167,10 +826,28 @@
                 bluetoothDevice.name;
 
 
+            addLog(
+                "Connecting to GATT server..."
+            );
+
 
             gattServer =
                 await bluetoothDevice.gatt.connect();
 
+
+            addLog(
+                "GATT connection established."
+            );
+
+
+            // ------------------------------------------------
+            // GET SERVICE
+            // ------------------------------------------------
+
+
+            addLog(
+                "Looking for thermocouple test service..."
+            );
 
 
             const service =
@@ -1179,131 +856,88 @@
                 );
 
 
+            addLog(
+                "BLE service found."
+            );
 
-            const accelCharacteristic =
+
+            // ------------------------------------------------
+            // GET CHARACTERISTIC
+            // ------------------------------------------------
+
+
+            testCharacteristic =
+
                 await service.getCharacteristic(
-                    ACCEL_UUID
+
+                    TEST_CHARACTERISTIC_UUID
+
                 );
 
 
-
-            const tapCharacteristic =
-                await service.getCharacteristic(
-                    TAP_UUID
-                );
+            addLog(
+                "Test characteristic found."
+            );
 
 
-
-            const wordCharacteristic =
-                await service.getCharacteristic(
-                    WORD_UUID
-                );
+            // ------------------------------------------------
+            // START NOTIFICATIONS
+            // ------------------------------------------------
 
 
-
-            // =================================================
-            // ACCEL NOTIFICATIONS
-            // =================================================
-
-            await accelCharacteristic
+            await testCharacteristic
                 .startNotifications();
 
 
-            accelCharacteristic
+            testCharacteristic
                 .addEventListener(
 
                     "characteristicvaluechanged",
 
-                    handleAccelerometer
+                    handleTestNotification
+
                 );
 
 
-
-            // =================================================
-            // TAP NOTIFICATIONS
-            // =================================================
-
-            await tapCharacteristic
-                .startNotifications();
+            addLog(
+                "Notifications enabled."
+            );
 
 
-            tapCharacteristic
-                .addEventListener(
+            // ------------------------------------------------
+            // READ INITIAL VALUE
+            // ------------------------------------------------
 
-                    "characteristicvaluechanged",
 
-                    handleTap
+            const initialValue =
+
+                await testCharacteristic
+                    .readValue();
+
+
+            const initialText =
+                valueToString(
+                    initialValue
                 );
 
 
-
-            // =================================================
-            // WORD NOTIFICATIONS
-            // =================================================
-
-            await wordCharacteristic
-                .startNotifications();
+            testValue.textContent =
+                initialText;
 
 
-            wordCharacteristic
-                .addEventListener(
+            addLog(
 
-                    "characteristicvaluechanged",
+                "Initial value: "
+                +
+                initialText
 
-                    handleWord
-                );
-
-
-
-            // =================================================
-            // INITIAL VALUES
-            // =================================================
-
-            const accelInitial =
-                await accelCharacteristic
-                    .readValue();
-
-
-            updateAccelerometer(
-
-                valueToString(
-                    accelInitial
-                )
             );
 
 
-
-            const tapInitial =
-                await tapCharacteristic
-                    .readValue();
-
-
-            updateTap(
-
-                valueToString(
-                    tapInitial
-                )
-            );
-
-
-
-            const wordInitial =
-                await wordCharacteristic
-                    .readValue();
-
-
-            updateWord(
-
-                valueToString(
-                    wordInitial
-                )
-            );
-
-
-
-            // =================================================
+            // ------------------------------------------------
             // CONNECTED
-            // =================================================
+            // ------------------------------------------------
+
 
             statusText.textContent =
                 "Connected";
@@ -1322,8 +956,9 @@
                 true;
 
 
-            graphInfo.textContent =
-                "Receiving live accelerometer data.";
+            addLog(
+                "Bluetooth connection ready."
+            );
 
         }
 
@@ -1331,7 +966,9 @@
         catch (error) {
 
 
-            console.error(error);
+            console.error(
+                error
+            );
 
 
             statusText.textContent =
@@ -1341,17 +978,26 @@
             errorMessage.textContent =
                 error.message;
 
+
+            addLog(
+
+                "ERROR: "
+                +
+                error.message
+
+            );
+
         }
 
     }
 
 
-
     // ========================================================
-    // ACCEL NOTIFICATION
+    // TEST CHARACTERISTIC NOTIFICATION
     // ========================================================
 
-    function handleAccelerometer(event) {
+
+    function handleTestNotification(event) {
 
 
         const text =
@@ -1360,991 +1006,32 @@
             );
 
 
-        updateAccelerometer(
-            text
-        );
+        receivedPackets++;
 
-    }
 
+        testValue.textContent =
+            text;
 
 
-    // ========================================================
-    // UPDATE ACCELEROMETER
-    // ========================================================
+        packetCount.textContent =
+            receivedPackets;
 
-    function updateAccelerometer(text) {
 
+        addLog(
 
-        rawData.textContent =
-            "ACCEL: " + text;
-
-
-
-        const parts =
-            text.split(",");
-
-
-
-        if (parts.length !== 3) {
-
-            return;
-        }
-
-
-
-        const x =
-            parseFloat(
-                parts[0]
-            );
-
-
-        const y =
-            parseFloat(
-                parts[1]
-            );
-
-
-        const z =
-            parseFloat(
-                parts[2]
-            );
-
-
-
-        if (
-
-            Number.isNaN(x) ||
-
-            Number.isNaN(y) ||
-
-            Number.isNaN(z)
-
-        ) {
-
-            return;
-        }
-
-
-
-        // =====================================================
-        // NUMERIC VALUES
-        // =====================================================
-
-        document.getElementById(
-            "xValue"
-        ).textContent =
-            x.toFixed(2);
-
-
-        document.getElementById(
-            "yValue"
-        ).textContent =
-            y.toFixed(2);
-
-
-        document.getElementById(
-            "zValue"
-        ).textContent =
-            z.toFixed(2);
-
-
-
-        document.getElementById(
-            "xBarNumber"
-        ).textContent =
-            x.toFixed(2)
-            + " g";
-
-
-        document.getElementById(
-            "yBarNumber"
-        ).textContent =
-            y.toFixed(2)
-            + " g";
-
-
-        document.getElementById(
-            "zBarNumber"
-        ).textContent =
-            z.toFixed(2)
-            + " g";
-
-
-
-        // =====================================================
-        // LIVE BARS
-        // =====================================================
-
-        updateMarker(
-            "xMarker",
-            x
-        );
-
-
-        updateMarker(
-            "yMarker",
-            y
-        );
-
-
-        updateMarker(
-            "zMarker",
-            z
-        );
-
-
-
-        // =====================================================
-        // GRAPH
-        // =====================================================
-
-        addGraphPoint(
-            x,
-            y,
-            z
-        );
-
-    }
-
-
-
-    // ========================================================
-    // BAR MARKER
-    // ========================================================
-
-    function updateMarker(
-        elementID,
-        value
-    ) {
-
-
-        let clamped =
-            Math.max(
-
-                -2,
-
-                Math.min(
-                    2,
-                    value
-                )
-            );
-
-
-
-        const percentage =
-            ((clamped + 2) / 4)
-            * 100;
-
-
-
-        document.getElementById(
-            elementID
-        ).style.left =
-            percentage + "%";
-
-    }
-
-
-
-    // ========================================================
-    // ADD GRAPH POINT
-    // ========================================================
-
-    function addGraphPoint(
-        x,
-        y,
-        z
-    ) {
-
-
-        if (graphPaused) {
-
-            return;
-        }
-
-
-
-        const now =
-            performance.now()
-            / 1000;
-
-
-
-        accelHistory.push({
-
-            time: now,
-
-            x: x,
-
-            y: y,
-
-            z: z
-
-        });
-
-
-
-        const cutoff =
-            now
-            - GRAPH_WINDOW_SECONDS;
-
-
-
-        while (
-
-            accelHistory.length > 0 &&
-
-            accelHistory[0].time
-                < cutoff
-
-        ) {
-
-            accelHistory.shift();
-
-        }
-
-
-
-        drawGraph();
-
-    }
-
-
-
-    // ========================================================
-    // SIZE CANVAS
-    // ========================================================
-
-    function resizeCanvas() {
-
-
-        const rectangle =
-            graphCanvas
-                .getBoundingClientRect();
-
-
-
-        const pixelRatio =
-            window.devicePixelRatio
-            || 1;
-
-
-
-        const width =
-            Math.round(
-                rectangle.width
-                * pixelRatio
-            );
-
-
-        const height =
-            Math.round(
-                rectangle.height
-                * pixelRatio
-            );
-
-
-
-        if (
-
-            graphCanvas.width
-                !== width ||
-
-            graphCanvas.height
-                !== height
-
-        ) {
-
-
-            graphCanvas.width =
-                width;
-
-
-            graphCanvas.height =
-                height;
-
-        }
-
-
-
-        graphContext.setTransform(
-
-            pixelRatio,
-
-            0,
-
-            0,
-
-            pixelRatio,
-
-            0,
-
-            0
-
-        );
-
-
-        return {
-
-            width:
-                rectangle.width,
-
-            height:
-                rectangle.height
-
-        };
-
-    }
-
-
-
-    // ========================================================
-    // DRAW GRAPH
-    // ========================================================
-
-    function drawGraph() {
-
-
-        const size =
-            resizeCanvas();
-
-
-
-        const width =
-            size.width;
-
-
-        const height =
-            size.height;
-
-
-
-        graphContext.clearRect(
-
-            0,
-
-            0,
-
-            width,
-
-            height
-
-        );
-
-
-
-        // =====================================================
-        // GRAPH AREA
-        // =====================================================
-
-        const left =
-            45;
-
-
-        const right =
-            15;
-
-
-        const top =
-            15;
-
-
-        const bottom =
-            32;
-
-
-
-        const plotWidth =
-            width
-            - left
-            - right;
-
-
-        const plotHeight =
-            height
-            - top
-            - bottom;
-
-
-
-        // =====================================================
-        // CURRENT TIME
-        // =====================================================
-
-        let currentTime =
-            performance.now()
-            / 1000;
-
-
-
-        if (accelHistory.length > 0) {
-
-            currentTime =
-                accelHistory[
-                    accelHistory.length - 1
-                ].time;
-
-        }
-
-
-
-        const startTime =
-            currentTime
-            - GRAPH_WINDOW_SECONDS;
-
-
-
-        // =====================================================
-        // BACKGROUND
-        // =====================================================
-
-        graphContext.fillStyle =
-            "#13191f";
-
-
-        graphContext.fillRect(
-
-            0,
-
-            0,
-
-            width,
-
-            height
-
-        );
-
-
-
-        // =====================================================
-        // HORIZONTAL GRID
-        // =====================================================
-
-        graphContext.font =
-            "12px Arial";
-
-
-        graphContext.textAlign =
-            "right";
-
-
-        graphContext.textBaseline =
-            "middle";
-
-
-
-        for (
-
-            let g = GRAPH_MIN_G;
-
-            g <= GRAPH_MAX_G;
-
-            g++
-
-        ) {
-
-
-            const y =
-                valueToGraphY(
-                    g,
-                    top,
-                    plotHeight
-                );
-
-
-
-            graphContext.beginPath();
-
-
-            graphContext.moveTo(
-                left,
-                y
-            );
-
-
-            graphContext.lineTo(
-                left + plotWidth,
-                y
-            );
-
-
-
-            if (g === 0) {
-
-                graphContext.strokeStyle =
-                    "#68737e";
-
-
-                graphContext.lineWidth =
-                    1.5;
-
-            }
-
-            else {
-
-                graphContext.strokeStyle =
-                    "#303a44";
-
-
-                graphContext.lineWidth =
-                    1;
-
-            }
-
-
-
-            graphContext.stroke();
-
-
-
-            graphContext.fillStyle =
-                "#9da7b1";
-
-
-            graphContext.fillText(
-
-                g + "g",
-
-                left - 8,
-
-                y
-
-            );
-
-        }
-
-
-
-        // =====================================================
-        // VERTICAL TIME GRID
-        // =====================================================
-
-        graphContext.textAlign =
-            "center";
-
-
-        graphContext.textBaseline =
-            "top";
-
-
-
-        for (
-
-            let seconds = 0;
-
-            seconds <= GRAPH_WINDOW_SECONDS;
-
-            seconds += 5
-
-        ) {
-
-
-            const x =
-                left
-                +
-                (
-                    seconds
-                    /
-                    GRAPH_WINDOW_SECONDS
-                )
-                * plotWidth;
-
-
-
-            graphContext.beginPath();
-
-
-            graphContext.moveTo(
-                x,
-                top
-            );
-
-
-            graphContext.lineTo(
-                x,
-                top + plotHeight
-            );
-
-
-            graphContext.strokeStyle =
-                "#252d35";
-
-
-            graphContext.lineWidth =
-                1;
-
-
-            graphContext.stroke();
-
-
-
-            const timeLabel =
-                seconds
-                - GRAPH_WINDOW_SECONDS;
-
-
-
-            graphContext.fillStyle =
-                "#9da7b1";
-
-
-            graphContext.fillText(
-
-                timeLabel === 0
-                    ? "now"
-                    : timeLabel + "s",
-
-                x,
-
-                top
-                + plotHeight
-                + 8
-
-            );
-
-        }
-
-
-
-        // =====================================================
-        // DRAW DATA
-        // =====================================================
-
-        drawSeries(
-
-            "x",
-
-            "#3aa0ff",
-
-            startTime,
-
-            left,
-
-            top,
-
-            plotWidth,
-
-            plotHeight
-
-        );
-
-
-
-        drawSeries(
-
-            "y",
-
-            "#3ed67b",
-
-            startTime,
-
-            left,
-
-            top,
-
-            plotWidth,
-
-            plotHeight
-
-        );
-
-
-
-        drawSeries(
-
-            "z",
-
-            "#ffca3a",
-
-            startTime,
-
-            left,
-
-            top,
-
-            plotWidth,
-
-            plotHeight
-
-        );
-
-    }
-
-
-
-    // ========================================================
-    // DRAW ONE AXIS LINE
-    // ========================================================
-
-    function drawSeries(
-
-        property,
-
-        colour,
-
-        startTime,
-
-        left,
-
-        top,
-
-        plotWidth,
-
-        plotHeight
-
-    ) {
-
-
-        if (accelHistory.length < 2) {
-
-            return;
-        }
-
-
-
-        graphContext.beginPath();
-
-
-
-        let started =
-            false;
-
-
-
-        for (
-
-            const point
-            of accelHistory
-
-        ) {
-
-
-            if (
-
-                point.time
-                < startTime
-
-            ) {
-
-                continue;
-            }
-
-
-
-            const x =
-                left
-                +
-                (
-                    (
-                        point.time
-                        - startTime
-                    )
-                    /
-                    GRAPH_WINDOW_SECONDS
-                )
-                * plotWidth;
-
-
-
-            const y =
-                valueToGraphY(
-
-                    point[property],
-
-                    top,
-
-                    plotHeight
-
-                );
-
-
-
-            if (!started) {
-
-                graphContext.moveTo(
-                    x,
-                    y
-                );
-
-
-                started =
-                    true;
-
-            }
-
-            else {
-
-                graphContext.lineTo(
-                    x,
-                    y
-                );
-
-            }
-
-        }
-
-
-
-        graphContext.strokeStyle =
-            colour;
-
-
-        graphContext.lineWidth =
-            2;
-
-
-        graphContext.lineJoin =
-            "round";
-
-
-        graphContext.lineCap =
-            "round";
-
-
-        graphContext.stroke();
-
-    }
-
-
-
-    // ========================================================
-    // CONVERT G VALUE -> GRAPH Y
-    // ========================================================
-
-    function valueToGraphY(
-
-        value,
-
-        top,
-
-        plotHeight
-
-    ) {
-
-
-        const clamped =
-            Math.max(
-
-                GRAPH_MIN_G,
-
-                Math.min(
-
-                    GRAPH_MAX_G,
-
-                    value
-
-                )
-
-            );
-
-
-
-        const fraction =
-
-            (
-                GRAPH_MAX_G
-                - clamped
-            )
-
-            /
-
-            (
-                GRAPH_MAX_G
-                - GRAPH_MIN_G
-            );
-
-
-
-        return (
-
-            top
+            "RX: "
             +
-            fraction
-            * plotHeight
-
-        );
-
-    }
-
-
-
-    // ========================================================
-    // TAP
-    // ========================================================
-
-    function handleTap(event) {
-
-
-        const text =
-            valueToString(
-                event.target.value
-            );
-
-
-        updateTap(
             text
+
         );
 
     }
-
-
-
-    function updateTap(text) {
-
-
-        document.getElementById(
-            "tapValue"
-        ).textContent =
-            text;
-
-
-        rawData.textContent =
-            "TAP: " + text;
-
-    }
-
-
-
-    // ========================================================
-    // WORD
-    // ========================================================
-
-    function handleWord(event) {
-
-
-        const text =
-            valueToString(
-                event.target.value
-            );
-
-
-        updateWord(
-            text
-        );
-
-    }
-
-
-
-    function updateWord(text) {
-
-
-        document.getElementById(
-            "wordValue"
-        ).textContent =
-            text;
-
-
-        rawData.textContent =
-            "WORD: " + text;
-
-    }
-
 
 
     // ========================================================
     // DISCONNECT
     // ========================================================
+
 
     function handleDisconnect() {
 
@@ -2359,7 +1046,7 @@
 
 
         connectButton.textContent =
-            "CONNECT TO M5";
+            "CONNECT TO ESP32";
 
 
         connectButton.disabled =
@@ -2370,32 +1057,15 @@
             "No device";
 
 
-        graphInfo.textContent =
-            "Bluetooth disconnected.";
+        testCharacteristic =
+            null;
+
+
+        addLog(
+            "Bluetooth disconnected."
+        );
 
     }
-
-
-
-    // ========================================================
-    // WINDOW RESIZE
-    // ========================================================
-
-    window.addEventListener(
-
-        "resize",
-
-        drawGraph
-
-    );
-
-
-
-    // ========================================================
-    // INITIAL EMPTY GRAPH
-    // ========================================================
-
-    drawGraph();
 
 
 </script>
@@ -2404,3 +1074,4 @@
 </body>
 
 </html>
+```
