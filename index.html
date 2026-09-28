@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +20,7 @@
         }
 
         body {
+
             margin: 0;
             padding: 20px;
 
@@ -32,7 +34,8 @@
         }
 
         .container {
-            max-width: 900px;
+
+            max-width: 1000px;
             margin: auto;
         }
 
@@ -41,26 +44,30 @@
         }
 
         .subtitle {
+
             color: #9da7b1;
+
             margin-top: 0;
             margin-bottom: 25px;
         }
 
-        /* ================================================
+
+        /* =====================================================
            CONNECTION
-        ================================================= */
+        ===================================================== */
 
         .connection-panel {
 
             display: flex;
+
             justify-content: space-between;
             align-items: center;
 
             gap: 15px;
 
-            background: #1b2128;
-
             padding: 15px;
+
+            background: #1b2128;
 
             border-radius: 12px;
 
@@ -70,6 +77,7 @@
         .status-area {
 
             display: flex;
+
             align-items: center;
 
             gap: 10px;
@@ -86,9 +94,13 @@
         }
 
         .status-dot.connected {
-
             background: #38c172;
         }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
 
         button {
 
@@ -96,9 +108,9 @@
 
             border-radius: 8px;
 
-            padding: 12px 20px;
+            padding: 12px 18px;
 
-            font-size: 16px;
+            font-size: 15px;
 
             font-weight: bold;
 
@@ -112,11 +124,21 @@
         button:disabled {
 
             opacity: 0.5;
+            cursor: default;
         }
 
-        /* ================================================
-           CHANNEL GRID
-        ================================================= */
+        .secondary-button {
+            background: #39434d;
+        }
+
+        .danger-button {
+            background: #8b3a3a;
+        }
+
+
+        /* =====================================================
+           TEMPERATURE GRID
+        ===================================================== */
 
         .temperature-grid {
 
@@ -139,6 +161,16 @@
             padding: 18px;
 
             text-align: center;
+
+            border: 2px solid transparent;
+        }
+
+        .channel-card.good {
+            border-color: #38c172;
+        }
+
+        .channel-card.fault-card {
+            border-color: #ff6b6b;
         }
 
         .channel-name {
@@ -148,6 +180,8 @@
             font-size: 14px;
 
             letter-spacing: 1px;
+
+            text-transform: uppercase;
         }
 
         .temperature {
@@ -162,18 +196,17 @@
         }
 
         .temperature.fault {
-
             color: #ff6b6b;
         }
 
         .temperature.wait {
-
             color: #9da7b1;
         }
 
-        /* ================================================
+
+        /* =====================================================
            CARDS
-        ================================================= */
+        ===================================================== */
 
         .card {
 
@@ -208,9 +241,188 @@
             color: #3aa0ff;
         }
 
-        /* ================================================
+
+        /* =====================================================
+           GRAPH
+        ===================================================== */
+
+        .graph-card {
+            margin-top: 20px;
+        }
+
+        .graph-header {
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 15px;
+        }
+
+        .graph-controls {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+        .channel-selector {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+        }
+
+        .channel-toggle {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: #252d35;
+
+            border-radius: 8px;
+
+            padding: 10px 12px;
+
+            cursor: pointer;
+        }
+
+        .channel-toggle input {
+
+            width: 18px;
+            height: 18px;
+        }
+
+        .colour-dot {
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            flex-shrink: 0;
+        }
+
+        .graph-wrapper {
+
+            width: 100%;
+
+            height: 360px;
+
+            background: #13191f;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        #tempGraph {
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+        }
+
+        .graph-info {
+
+            margin-top: 12px;
+
+            color: #9da7b1;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           RECORDING INFORMATION
+        ===================================================== */
+
+        .recording-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+        .recording-stat {
+
+            background: #252d35;
+
+            border-radius: 10px;
+
+            padding: 14px;
+        }
+
+        .recording-value {
+
+            margin-top: 6px;
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           BLE INFO
+        ===================================================== */
+
+        .detail-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 9px 0;
+
+            border-bottom:
+                1px solid #303a44;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-name {
+            color: #9da7b1;
+        }
+
+        .detail-value {
+
+            font-family: monospace;
+
+            text-align: right;
+
+            word-break: break-all;
+        }
+
+
+        /* =====================================================
            DEBUG
-        ================================================= */
+        ===================================================== */
 
         #rawData {
 
@@ -219,23 +431,21 @@
             font-size: 14px;
 
             color: #d6dde5;
-
-            margin-bottom: 15px;
         }
 
         #log {
 
-            background: #13191f;
-
-            border-radius: 8px;
-
-            padding: 15px;
-
-            min-height: 150px;
+            min-height: 140px;
 
             max-height: 300px;
 
             overflow-y: auto;
+
+            padding: 15px;
+
+            background: #13191f;
+
+            border-radius: 8px;
 
             font-family: monospace;
 
@@ -249,11 +459,14 @@
             color: #ff6b6b;
 
             margin-top: 15px;
+
+            white-space: pre-wrap;
         }
 
-        /* ================================================
+
+        /* =====================================================
            MOBILE
-        ================================================= */
+        ===================================================== */
 
         @media (max-width: 700px) {
 
@@ -261,6 +474,23 @@
 
                 grid-template-columns:
                     repeat(2, 1fr);
+            }
+
+            .channel-selector {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .recording-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .graph-wrapper {
+
+                height: 300px;
             }
 
         }
@@ -279,8 +509,28 @@
             }
 
             .connection-panel button {
+                width: 100%;
+            }
+
+            .detail-row {
+
+                flex-direction: column;
+
+                gap: 4px;
+            }
+
+            .detail-value {
+                text-align: left;
+            }
+
+            .graph-controls {
 
                 width: 100%;
+            }
+
+            .graph-controls button {
+
+                flex: 1;
             }
 
         }
@@ -304,9 +554,9 @@
     </p>
 
 
-    <!-- ================================================
+    <!-- =====================================================
          CONNECTION
-    ================================================= -->
+    ====================================================== -->
 
     <div class="connection-panel">
 
@@ -333,6 +583,7 @@
                     style="
                         color:#9da7b1;
                         font-size:13px;
+                        margin-top:3px;
                     "
                 >
                     No device
@@ -353,15 +604,14 @@
     </div>
 
 
-    <!-- ================================================
-         TEMPERATURES
-    ================================================= -->
-
+    <!-- =====================================================
+         TEMPERATURE CHANNELS
+    ====================================================== -->
 
     <div class="temperature-grid">
 
 
-        <div class="channel-card">
+        <div id="card0" class="channel-card">
 
             <div class="channel-name">
                 TC0
@@ -377,7 +627,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card1" class="channel-card">
 
             <div class="channel-name">
                 TC1
@@ -393,7 +643,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card2" class="channel-card">
 
             <div class="channel-name">
                 TC2
@@ -409,7 +659,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card3" class="channel-card">
 
             <div class="channel-name">
                 TC3
@@ -425,7 +675,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card4" class="channel-card">
 
             <div class="channel-name">
                 TC4
@@ -441,7 +691,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card5" class="channel-card">
 
             <div class="channel-name">
                 TC5
@@ -457,7 +707,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card6" class="channel-card">
 
             <div class="channel-name">
                 TC6
@@ -473,7 +723,7 @@
         </div>
 
 
-        <div class="channel-card">
+        <div id="card7" class="channel-card">
 
             <div class="channel-name">
                 TC7
@@ -492,9 +742,9 @@
     </div>
 
 
-    <!-- ================================================
-         SCAN
-    ================================================= -->
+    <!-- =====================================================
+         SCAN COUNTER
+    ====================================================== -->
 
     <div class="card">
 
@@ -515,9 +765,331 @@
     </div>
 
 
-    <!-- ================================================
+    <!-- =====================================================
+         LIVE TEMPERATURE GRAPH
+    ====================================================== -->
+
+    <div class="card graph-card">
+
+
+        <div class="graph-header">
+
+
+            <div>
+
+
+                <div class="label">
+                    Live Temperature Graph
+                </div>
+
+
+                <div
+                    style="
+                        color:#9da7b1;
+                        font-size:13px;
+                    "
+                >
+                    One graph sample per complete 8-channel scan
+                </div>
+
+
+            </div>
+
+
+            <div class="graph-controls">
+
+
+                <button
+                    id="pauseGraphButton"
+                    class="secondary-button"
+                >
+                    PAUSE
+                </button>
+
+
+                <button
+                    id="clearGraphButton"
+                    class="secondary-button"
+                >
+                    CLEAR DATA
+                </button>
+
+
+                <button
+                    id="exportCsvButton"
+                >
+                    EXPORT CSV
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CHANNEL SELECTION -->
+
+        <div class="channel-selector">
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="0"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#3aa0ff;"
+                ></span>
+
+                TC0
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="1"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#3ed67b;"
+                ></span>
+
+                TC1
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="2"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#ffca3a;"
+                ></span>
+
+                TC2
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="3"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#ff6b6b;"
+                ></span>
+
+                TC3
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="4"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#c77dff;"
+                ></span>
+
+                TC4
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="5"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#ff9f43;"
+                ></span>
+
+                TC5
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="6"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#00d2d3;"
+                ></span>
+
+                TC6
+
+            </label>
+
+
+            <label class="channel-toggle">
+
+                <input
+                    type="checkbox"
+                    class="channel-checkbox"
+                    data-channel="7"
+                    checked
+                >
+
+                <span
+                    class="colour-dot"
+                    style="background:#f368e0;"
+                ></span>
+
+                TC7
+
+            </label>
+
+
+        </div>
+
+
+        <div class="graph-wrapper">
+
+            <canvas id="tempGraph"></canvas>
+
+        </div>
+
+
+        <div
+            id="graphInfo"
+            class="graph-info"
+        >
+            Waiting for temperature data...
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         RECORDING INFORMATION
+    ====================================================== -->
+
+    <div class="card">
+
+
+        <div class="label">
+            Recording
+        </div>
+
+
+        <div class="recording-grid">
+
+
+            <div class="recording-stat">
+
+                <div class="detail-name">
+                    CSV Samples
+                </div>
+
+                <div
+                    id="sampleCount"
+                    class="recording-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="recording-stat">
+
+                <div class="detail-name">
+                    Recording Time
+                </div>
+
+                <div
+                    id="recordingTime"
+                    class="recording-value"
+                >
+                    0 s
+                </div>
+
+            </div>
+
+
+            <div class="recording-stat">
+
+                <div class="detail-name">
+                    Graph
+                </div>
+
+                <div
+                    id="graphState"
+                    class="recording-value"
+                >
+                    RUNNING
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            style="
+                color:#9da7b1;
+                font-size:13px;
+                margin-top:12px;
+            "
+        >
+            Pause stops graph redraw only. Data continues recording for CSV.
+            Clear Data resets both the graph and CSV recording.
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
          LAST PACKET
-    ================================================= -->
+    ====================================================== -->
 
     <div class="card">
 
@@ -535,9 +1107,76 @@
     </div>
 
 
-    <!-- ================================================
+    <!-- =====================================================
+         BLE CONFIGURATION
+    ====================================================== -->
+
+    <div class="card">
+
+
+        <div class="label">
+            BLE Configuration
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-name">
+                Device
+            </div>
+
+            <div class="detail-value">
+                ESP32-Thermo8
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-name">
+                Service
+            </div>
+
+            <div class="detail-value">
+                91bad492-b950-4226-aa2b-4ede9fa42f61
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-name">
+                Temperature
+            </div>
+
+            <div class="detail-value">
+                ca73b3ba-39f6-4ab3-91ae-186dc9577e11
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-name">
+                Status
+            </div>
+
+            <div class="detail-value">
+                ca73b3ba-39f6-4ab3-91ae-186dc9577e12
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
          DEBUG
-    ================================================= -->
+    ====================================================== -->
 
     <div class="card">
 
@@ -569,8 +1208,6 @@ Waiting for connection...
 
     // ========================================================
     // BLE CONFIGURATION
-    //
-    // MATCHES FULL ESP32 THERMOCOUPLE FIRMWARE
     // ========================================================
 
 
@@ -591,7 +1228,34 @@ Waiting for connection...
 
 
     // ========================================================
-    // GLOBALS
+    // GRAPH CONFIGURATION
+    // ========================================================
+
+
+    const CHANNEL_COLOURS = [
+
+        "#3aa0ff",
+        "#3ed67b",
+        "#ffca3a",
+        "#ff6b6b",
+        "#c77dff",
+        "#ff9f43",
+        "#00d2d3",
+        "#f368e0"
+
+    ];
+
+
+    // Maximum number of samples displayed on the graph.
+    //
+    // CSV storage is NOT limited by this.
+
+    const MAX_GRAPH_SAMPLES =
+        300;
+
+
+    // ========================================================
+    // BLE GLOBALS
     // ========================================================
 
 
@@ -618,7 +1282,51 @@ Waiting for connection...
 
 
     // ========================================================
-    // ELEMENTS
+    // TEMPERATURE STATE
+    // ========================================================
+
+
+    const latestNumericTemps =
+
+        new Array(8)
+            .fill(null);
+
+
+    const latestRawTemps =
+
+        new Array(8)
+            .fill("WAIT");
+
+
+    const channelSeen =
+
+        new Array(8)
+            .fill(false);
+
+
+    // ========================================================
+    // RECORDING STATE
+    // ========================================================
+
+
+    let graphPaused =
+        false;
+
+
+    let graphHistory =
+        [];
+
+
+    let csvHistory =
+        [];
+
+
+    let recordingStartTime =
+        performance.now();
+
+
+    // ========================================================
+    // HTML ELEMENTS
     // ========================================================
 
 
@@ -658,20 +1366,81 @@ Waiting for connection...
         );
 
 
-    const log =
-        document.getElementById(
-            "log"
-        );
-
-
     const errorMessage =
         document.getElementById(
             "errorMessage"
         );
 
 
+    const log =
+        document.getElementById(
+            "log"
+        );
+
+
+    const graphCanvas =
+        document.getElementById(
+            "tempGraph"
+        );
+
+
+    const graphContext =
+        graphCanvas.getContext(
+            "2d"
+        );
+
+
+    const pauseGraphButton =
+        document.getElementById(
+            "pauseGraphButton"
+        );
+
+
+    const clearGraphButton =
+        document.getElementById(
+            "clearGraphButton"
+        );
+
+
+    const exportCsvButton =
+        document.getElementById(
+            "exportCsvButton"
+        );
+
+
+    const graphInfo =
+        document.getElementById(
+            "graphInfo"
+        );
+
+
+    const sampleCount =
+        document.getElementById(
+            "sampleCount"
+        );
+
+
+    const recordingTime =
+        document.getElementById(
+            "recordingTime"
+        );
+
+
+    const graphState =
+        document.getElementById(
+            "graphState"
+        );
+
+
+    const channelCheckboxes =
+
+        document.querySelectorAll(
+            ".channel-checkbox"
+        );
+
+
     // ========================================================
-    // LOG
+    // DEBUG LOG
     // ========================================================
 
 
@@ -679,14 +1448,17 @@ Waiting for connection...
 
 
         const time =
+
             new Date()
                 .toLocaleTimeString();
 
 
         if (
+
             log.textContent.trim()
             ===
             "Waiting for connection..."
+
         ) {
 
             log.textContent =
@@ -695,8 +1467,11 @@ Waiting for connection...
 
 
         log.textContent +=
-            "[" +
-            time +
+
+            "["
+            +
+            time
+            +
             "] "
             +
             message
@@ -710,7 +1485,7 @@ Waiting for connection...
 
 
     // ========================================================
-    // BLE VALUE -> STRING
+    // BLE DATAVIEW -> STRING
     // ========================================================
 
 
@@ -748,7 +1523,147 @@ Waiting for connection...
 
 
     // ========================================================
-    // CONNECT
+    // GRAPH CONTROLS
+    // ========================================================
+
+
+    pauseGraphButton.addEventListener(
+
+        "click",
+
+        function () {
+
+
+            graphPaused =
+                !graphPaused;
+
+
+            if (graphPaused) {
+
+
+                pauseGraphButton.textContent =
+                    "RESUME";
+
+
+                graphState.textContent =
+                    "PAUSED";
+
+
+                graphInfo.textContent =
+                    "Graph paused. CSV recording is still running.";
+
+            }
+
+            else {
+
+
+                pauseGraphButton.textContent =
+                    "PAUSE";
+
+
+                graphState.textContent =
+                    "RUNNING";
+
+
+                graphInfo.textContent =
+                    "Graph resumed.";
+
+
+                drawGraph();
+
+            }
+
+        }
+
+    );
+
+
+    clearGraphButton.addEventListener(
+
+        "click",
+
+        function () {
+
+
+            graphHistory =
+                [];
+
+
+            csvHistory =
+                [];
+
+
+            recordingStartTime =
+                performance.now();
+
+
+            sampleCount.textContent =
+                "0";
+
+
+            recordingTime.textContent =
+                "0 s";
+
+
+            drawGraph();
+
+
+            graphInfo.textContent =
+                "Graph and CSV recording cleared.";
+
+
+            addLog(
+                "Graph and CSV recording cleared."
+            );
+
+        }
+
+    );
+
+
+    exportCsvButton.addEventListener(
+
+        "click",
+
+        exportCSV
+
+    );
+
+
+    // ========================================================
+    // CHANNEL SELECTION
+    // ========================================================
+
+
+    channelCheckboxes.forEach(
+
+        function (checkbox) {
+
+
+            checkbox.addEventListener(
+
+                "change",
+
+                function () {
+
+
+                    if (!graphPaused) {
+
+                        drawGraph();
+
+                    }
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    // ========================================================
+    // CONNECT BLUETOOTH
     // ========================================================
 
 
@@ -767,7 +1682,7 @@ Waiting for connection...
 
                 throw new Error(
 
-                    "Web Bluetooth unavailable. Use Chrome on Android."
+                    "Web Bluetooth is not available. Use Chrome on Android."
 
                 );
             }
@@ -778,18 +1693,8 @@ Waiting for connection...
 
 
             addLog(
-                "Opening BLE device selector."
+                "Opening Bluetooth device selector."
             );
-
-
-            // ------------------------------------------------
-            // IMPORTANT
-            //
-            // Use namePrefix rather than acceptAllDevices.
-            //
-            // This should now show ESP32-Thermo8 while
-            // excluding unrelated nearby BLE devices.
-            // ------------------------------------------------
 
 
             bluetoothDevice =
@@ -799,8 +1704,10 @@ Waiting for connection...
                     filters: [
 
                         {
+
                             namePrefix:
                                 DEVICE_NAME_PREFIX
+
                         }
 
                     ],
@@ -820,7 +1727,7 @@ Waiting for connection...
 
                 ||
 
-                "Unnamed device";
+                "Unnamed BLE device";
 
 
             deviceName.textContent =
@@ -829,7 +1736,7 @@ Waiting for connection...
 
             addLog(
 
-                "Selected: "
+                "Selected device: "
                 +
                 selectedName
 
@@ -849,11 +1756,6 @@ Waiting for connection...
                 "Connecting...";
 
 
-            // ------------------------------------------------
-            // GATT
-            // ------------------------------------------------
-
-
             addLog(
                 "Connecting to GATT server..."
             );
@@ -867,18 +1769,13 @@ Waiting for connection...
 
 
             addLog(
-                "GATT connected."
+                "GATT connection established."
             );
 
 
             // ------------------------------------------------
             // SERVICE
             // ------------------------------------------------
-
-
-            addLog(
-                "Finding thermocouple service..."
-            );
 
 
             const service =
@@ -895,7 +1792,7 @@ Waiting for connection...
 
 
             // ------------------------------------------------
-            // TEMPERATURE CHARACTERISTIC
+            // CHARACTERISTICS
             // ------------------------------------------------
 
 
@@ -907,16 +1804,6 @@ Waiting for connection...
                     );
 
 
-            addLog(
-                "Temperature characteristic found."
-            );
-
-
-            // ------------------------------------------------
-            // STATUS CHARACTERISTIC
-            // ------------------------------------------------
-
-
             statusCharacteristic =
 
                 await service
@@ -926,7 +1813,7 @@ Waiting for connection...
 
 
             addLog(
-                "Status characteristic found."
+                "BLE characteristics found."
             );
 
 
@@ -949,11 +1836,6 @@ Waiting for connection...
                 );
 
 
-            addLog(
-                "Temperature notifications enabled."
-            );
-
-
             // ------------------------------------------------
             // STATUS NOTIFICATIONS
             // ------------------------------------------------
@@ -974,12 +1856,12 @@ Waiting for connection...
 
 
             addLog(
-                "Status notifications enabled."
+                "BLE notifications enabled."
             );
 
 
             // ------------------------------------------------
-            // INITIAL TEMPERATURE CHARACTERISTIC
+            // INITIAL VALUES
             // ------------------------------------------------
 
 
@@ -998,11 +1880,6 @@ Waiting for connection...
             );
 
 
-            // ------------------------------------------------
-            // INITIAL STATUS
-            // ------------------------------------------------
-
-
             const initialStatus =
 
                 await statusCharacteristic
@@ -1013,7 +1890,9 @@ Waiting for connection...
 
                 valueToString(
                     initialStatus
-                )
+                ),
+
+                false
 
             );
 
@@ -1041,7 +1920,7 @@ Waiting for connection...
 
 
             addLog(
-                "BLE connection ready."
+                "Bluetooth connection ready."
             );
 
         }
@@ -1062,6 +1941,10 @@ Waiting for connection...
             statusDot.classList.remove(
                 "connected"
             );
+
+
+            connectButton.textContent =
+                "CONNECT TO ESP32";
 
 
             connectButton.disabled =
@@ -1103,17 +1986,17 @@ Waiting for connection...
         processTemperature(
             text
         );
+
     }
 
 
     // ========================================================
     // PROCESS TEMPERATURE
     //
-    // Expected:
+    // Examples:
     //
     // T0=21.50
     // T1=FAULT
-    //
     // ========================================================
 
 
@@ -1122,11 +2005,6 @@ Waiting for connection...
 
         rawData.textContent =
             text;
-
-
-        addLog(
-            "TEMP RX: " + text
-        );
 
 
         const match =
@@ -1143,6 +2021,7 @@ Waiting for connection...
 
 
         const channel =
+
             parseInt(
                 match[1]
             );
@@ -1152,7 +2031,15 @@ Waiting for connection...
             match[2];
 
 
-        const element =
+        latestRawTemps[channel] =
+            value;
+
+
+        channelSeen[channel] =
+            true;
+
+
+        const temperatureElement =
 
             document.getElementById(
 
@@ -1163,73 +2050,139 @@ Waiting for connection...
             );
 
 
-        if (!element) {
+        const cardElement =
+
+            document.getElementById(
+
+                "card"
+                +
+                channel
+
+            );
+
+
+        temperatureElement
+            .classList
+            .remove(
+
+                "fault",
+                "wait"
+
+            );
+
+
+        cardElement
+            .classList
+            .remove(
+
+                "good",
+                "fault-card"
+
+            );
+
+
+        // ----------------------------------------------------
+        // FAULT
+        // ----------------------------------------------------
+
+
+        if (
+            value === "FAULT"
+        ) {
+
+
+            latestNumericTemps[channel] =
+                null;
+
+
+            temperatureElement.textContent =
+                "FAULT";
+
+
+            temperatureElement
+                .classList
+                .add(
+                    "fault"
+                );
+
+
+            cardElement
+                .classList
+                .add(
+                    "fault-card"
+                );
+
 
             return;
         }
 
 
-        element.classList.remove(
-
-            "fault",
-            "wait"
-
-        );
+        // ----------------------------------------------------
+        // WAIT
+        // ----------------------------------------------------
 
 
-        if (value === "FAULT") {
+        if (
+            value === "WAIT"
+        ) {
 
 
-            element.textContent =
-                "FAULT";
+            latestNumericTemps[channel] =
+                null;
 
 
-            element.classList.add(
-                "fault"
-            );
-
-        }
-
-
-        else if (value === "WAIT") {
-
-
-            element.textContent =
+            temperatureElement.textContent =
                 "WAIT";
 
 
-            element.classList.add(
-                "wait"
-            );
-
-        }
-
-
-        else {
-
-
-            const temperature =
-                parseFloat(
-                    value
+            temperatureElement
+                .classList
+                .add(
+                    "wait"
                 );
 
 
-            if (
-                !Number.isNaN(
-                    temperature
-                )
-            ) {
+            return;
+        }
 
 
-                element.textContent =
+        // ----------------------------------------------------
+        // TEMPERATURE
+        // ----------------------------------------------------
 
-                    temperature
-                        .toFixed(2)
 
-                    +
-                    " °C";
+        const temperature =
 
-            }
+            parseFloat(
+                value
+            );
+
+
+        if (
+            !Number.isNaN(
+                temperature
+            )
+        ) {
+
+
+            latestNumericTemps[channel] =
+                temperature;
+
+
+            temperatureElement.textContent =
+
+                temperature
+                    .toFixed(2)
+
+                +
+                " °C";
+
+
+            cardElement
+                .classList
+                .add(
+                    "good"
+                );
 
         }
 
@@ -1252,7 +2205,8 @@ Waiting for connection...
 
 
         processStatus(
-            text
+            text,
+            true
         );
 
     }
@@ -1261,23 +2215,21 @@ Waiting for connection...
     // ========================================================
     // PROCESS STATUS
     //
-    // Expected:
-    //
     // SCAN=123
     //
+    // Status arrives after a complete scan.
+    // This is when we record a graph/CSV sample.
     // ========================================================
 
 
-    function processStatus(text) {
+    function processStatus(
+        text,
+        recordSample
+    ) {
 
 
         rawData.textContent =
             text;
-
-
-        addLog(
-            "STATUS RX: " + text
-        );
 
 
         const match =
@@ -1287,13 +2239,1426 @@ Waiting for connection...
             );
 
 
-        if (match) {
+        if (!match) {
+
+            return;
+        }
 
 
-            scanValue.textContent =
-                match[1];
+        const scanNumber =
+
+            parseInt(
+                match[1]
+            );
+
+
+        scanValue.textContent =
+            scanNumber;
+
+
+        if (
+            recordSample
+            &&
+            channelSeen.every(
+                value => value
+            )
+        ) {
+
+
+            recordScan(
+                scanNumber
+            );
 
         }
+
+    }
+
+
+    // ========================================================
+    // RECORD COMPLETE SCAN
+    // ========================================================
+
+
+    function recordScan(scanNumber) {
+
+
+        const now =
+            new Date();
+
+
+        const elapsed =
+
+            (
+                performance.now()
+                -
+                recordingStartTime
+            )
+
+            /
+            1000;
+
+
+        const sample = {
+
+            timestamp:
+                now.toISOString(),
+
+            elapsed:
+                elapsed,
+
+            scan:
+                scanNumber,
+
+            temps:
+                latestNumericTemps.slice(),
+
+            raw:
+                latestRawTemps.slice()
+
+        };
+
+
+        // ----------------------------------------------------
+        // CSV HISTORY
+        // ----------------------------------------------------
+
+
+        csvHistory.push(
+            sample
+        );
+
+
+        // ----------------------------------------------------
+        // GRAPH HISTORY
+        // ----------------------------------------------------
+
+
+        graphHistory.push(
+            sample
+        );
+
+
+        if (
+            graphHistory.length
+            >
+            MAX_GRAPH_SAMPLES
+        ) {
+
+
+            graphHistory.shift();
+
+        }
+
+
+        // ----------------------------------------------------
+        // UI
+        // ----------------------------------------------------
+
+
+        sampleCount.textContent =
+            csvHistory.length;
+
+
+        recordingTime.textContent =
+
+            formatDuration(
+                elapsed
+            );
+
+
+        if (!graphPaused) {
+
+
+            drawGraph();
+
+
+            graphInfo.textContent =
+
+                "Latest scan: "
+                +
+                scanNumber
+                +
+                " | "
+                +
+                csvHistory.length
+                +
+                " samples recorded";
+
+        }
+
+    }
+
+
+    // ========================================================
+    // FORMAT DURATION
+    // ========================================================
+
+
+    function formatDuration(seconds) {
+
+
+        const total =
+
+            Math.max(
+                0,
+                Math.floor(seconds)
+            );
+
+
+        if (
+            total < 60
+        ) {
+
+            return total + " s";
+        }
+
+
+        const minutes =
+
+            Math.floor(
+                total / 60
+            );
+
+
+        const remainingSeconds =
+
+            total % 60;
+
+
+        if (
+            minutes < 60
+        ) {
+
+            return (
+
+                minutes
+                +
+                "m "
+                +
+                remainingSeconds
+                +
+                "s"
+
+            );
+        }
+
+
+        const hours =
+
+            Math.floor(
+                minutes / 60
+            );
+
+
+        const remainingMinutes =
+
+            minutes % 60;
+
+
+        return (
+
+            hours
+            +
+            "h "
+            +
+            remainingMinutes
+            +
+            "m"
+
+        );
+
+    }
+
+
+    // ========================================================
+    // SELECTED GRAPH CHANNELS
+    // ========================================================
+
+
+    function getSelectedChannels() {
+
+
+        const selected =
+            [];
+
+
+        channelCheckboxes.forEach(
+
+            function (checkbox) {
+
+
+                if (checkbox.checked) {
+
+
+                    selected.push(
+
+                        parseInt(
+                            checkbox.dataset.channel
+                        )
+
+                    );
+
+                }
+
+            }
+
+        );
+
+
+        return selected;
+
+    }
+
+
+    // ========================================================
+    // SIZE CANVAS
+    // ========================================================
+
+
+    function resizeCanvas() {
+
+
+        const rectangle =
+
+            graphCanvas
+                .getBoundingClientRect();
+
+
+        const pixelRatio =
+
+            window.devicePixelRatio
+            ||
+            1;
+
+
+        const width =
+
+            Math.round(
+
+                rectangle.width
+                *
+                pixelRatio
+
+            );
+
+
+        const height =
+
+            Math.round(
+
+                rectangle.height
+                *
+                pixelRatio
+
+            );
+
+
+        if (
+
+            graphCanvas.width
+            !==
+            width
+
+            ||
+
+            graphCanvas.height
+            !==
+            height
+
+        ) {
+
+
+            graphCanvas.width =
+                width;
+
+
+            graphCanvas.height =
+                height;
+
+        }
+
+
+        graphContext.setTransform(
+
+            pixelRatio,
+            0,
+            0,
+            pixelRatio,
+            0,
+            0
+
+        );
+
+
+        return {
+
+            width:
+                rectangle.width,
+
+            height:
+                rectangle.height
+
+        };
+
+    }
+
+
+    // ========================================================
+    // DRAW GRAPH
+    // ========================================================
+
+
+    function drawGraph() {
+
+
+        const size =
+            resizeCanvas();
+
+
+        const width =
+            size.width;
+
+
+        const height =
+            size.height;
+
+
+        // ----------------------------------------------------
+        // BACKGROUND
+        // ----------------------------------------------------
+
+
+        graphContext.clearRect(
+
+            0,
+            0,
+            width,
+            height
+
+        );
+
+
+        graphContext.fillStyle =
+            "#13191f";
+
+
+        graphContext.fillRect(
+
+            0,
+            0,
+            width,
+            height
+
+        );
+
+
+        const selectedChannels =
+            getSelectedChannels();
+
+
+        // ----------------------------------------------------
+        // EMPTY STATE
+        // ----------------------------------------------------
+
+
+        if (
+            selectedChannels.length === 0
+        ) {
+
+
+            drawCentredMessage(
+
+                width,
+                height,
+                "Select at least one temperature channel"
+
+            );
+
+
+            return;
+        }
+
+
+        if (
+            graphHistory.length === 0
+        ) {
+
+
+            drawCentredMessage(
+
+                width,
+                height,
+                "Waiting for temperature data..."
+
+            );
+
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // GRAPH AREA
+        // ----------------------------------------------------
+
+
+        const left =
+            58;
+
+
+        const right =
+            18;
+
+
+        const top =
+            20;
+
+
+        const bottom =
+            38;
+
+
+        const plotWidth =
+
+            width
+            -
+            left
+            -
+            right;
+
+
+        const plotHeight =
+
+            height
+            -
+            top
+            -
+            bottom;
+
+
+        // ----------------------------------------------------
+        // DETERMINE Y RANGE
+        // ----------------------------------------------------
+
+
+        let minTemp =
+            Infinity;
+
+
+        let maxTemp =
+            -Infinity;
+
+
+        graphHistory.forEach(
+
+            function (sample) {
+
+
+                selectedChannels.forEach(
+
+                    function (channel) {
+
+
+                        const value =
+
+                            sample.temps[
+                                channel
+                            ];
+
+
+                        if (
+                            Number.isFinite(
+                                value
+                            )
+                        ) {
+
+
+                            minTemp =
+
+                                Math.min(
+                                    minTemp,
+                                    value
+                                );
+
+
+                            maxTemp =
+
+                                Math.max(
+                                    maxTemp,
+                                    value
+                                );
+
+                        }
+
+                    }
+
+                );
+
+            }
+
+        );
+
+
+        if (
+            !Number.isFinite(minTemp)
+            ||
+            !Number.isFinite(maxTemp)
+        ) {
+
+
+            drawCentredMessage(
+
+                width,
+                height,
+                "Selected channels have no valid readings"
+
+            );
+
+
+            return;
+        }
+
+
+        let temperatureRange =
+
+            maxTemp
+            -
+            minTemp;
+
+
+        if (
+            temperatureRange < 2
+        ) {
+
+            temperatureRange =
+                2;
+        }
+
+
+        const padding =
+
+            Math.max(
+
+                1,
+
+                temperatureRange
+                *
+                0.10
+
+            );
+
+
+        let yMin =
+
+            minTemp
+            -
+            padding;
+
+
+        let yMax =
+
+            maxTemp
+            +
+            padding;
+
+
+        // ----------------------------------------------------
+        // TIME RANGE
+        // ----------------------------------------------------
+
+
+        const firstTime =
+
+            graphHistory[0]
+                .elapsed;
+
+
+        let lastTime =
+
+            graphHistory[
+                graphHistory.length - 1
+            ].elapsed;
+
+
+        if (
+            lastTime <= firstTime
+        ) {
+
+            lastTime =
+                firstTime + 1;
+        }
+
+
+        // ----------------------------------------------------
+        // HORIZONTAL GRID
+        // ----------------------------------------------------
+
+
+        graphContext.font =
+            "12px Arial";
+
+
+        graphContext.textAlign =
+            "right";
+
+
+        graphContext.textBaseline =
+            "middle";
+
+
+        const horizontalLines =
+            5;
+
+
+        for (
+            let i = 0;
+            i <= horizontalLines;
+            i++
+        ) {
+
+
+            const fraction =
+
+                i
+                /
+                horizontalLines;
+
+
+            const y =
+
+                top
+                +
+                fraction
+                *
+                plotHeight;
+
+
+            const temperature =
+
+                yMax
+                -
+                fraction
+                *
+                (
+                    yMax
+                    -
+                    yMin
+                );
+
+
+            graphContext.beginPath();
+
+
+            graphContext.moveTo(
+                left,
+                y
+            );
+
+
+            graphContext.lineTo(
+
+                left
+                +
+                plotWidth,
+
+                y
+
+            );
+
+
+            graphContext.strokeStyle =
+                "#303a44";
+
+
+            graphContext.lineWidth =
+                1;
+
+
+            graphContext.stroke();
+
+
+            graphContext.fillStyle =
+                "#9da7b1";
+
+
+            graphContext.fillText(
+
+                temperature.toFixed(1)
+                +
+                "°",
+
+                left - 8,
+
+                y
+
+            );
+
+        }
+
+
+        // ----------------------------------------------------
+        // VERTICAL TIME GRID
+        // ----------------------------------------------------
+
+
+        graphContext.textAlign =
+            "center";
+
+
+        graphContext.textBaseline =
+            "top";
+
+
+        const verticalLines =
+            4;
+
+
+        for (
+            let i = 0;
+            i <= verticalLines;
+            i++
+        ) {
+
+
+            const fraction =
+
+                i
+                /
+                verticalLines;
+
+
+            const x =
+
+                left
+                +
+                fraction
+                *
+                plotWidth;
+
+
+            const elapsed =
+
+                firstTime
+                +
+                fraction
+                *
+                (
+                    lastTime
+                    -
+                    firstTime
+                );
+
+
+            graphContext.beginPath();
+
+
+            graphContext.moveTo(
+                x,
+                top
+            );
+
+
+            graphContext.lineTo(
+
+                x,
+
+                top
+                +
+                plotHeight
+
+            );
+
+
+            graphContext.strokeStyle =
+                "#252d35";
+
+
+            graphContext.lineWidth =
+                1;
+
+
+            graphContext.stroke();
+
+
+            graphContext.fillStyle =
+                "#9da7b1";
+
+
+            graphContext.fillText(
+
+                formatGraphTime(
+                    elapsed
+                ),
+
+                x,
+
+                top
+                +
+                plotHeight
+                +
+                9
+
+            );
+
+        }
+
+
+        // ----------------------------------------------------
+        // DRAW EACH SELECTED CHANNEL
+        // ----------------------------------------------------
+
+
+        selectedChannels.forEach(
+
+            function (channel) {
+
+
+                drawTemperatureSeries(
+
+                    channel,
+
+                    firstTime,
+                    lastTime,
+
+                    yMin,
+                    yMax,
+
+                    left,
+                    top,
+
+                    plotWidth,
+                    plotHeight
+
+                );
+
+            }
+
+        );
+
+    }
+
+
+    // ========================================================
+    // DRAW ONE TEMPERATURE SERIES
+    // ========================================================
+
+
+    function drawTemperatureSeries(
+
+        channel,
+
+        firstTime,
+        lastTime,
+
+        yMin,
+        yMax,
+
+        left,
+        top,
+
+        plotWidth,
+        plotHeight
+
+    ) {
+
+
+        graphContext.beginPath();
+
+
+        let started =
+            false;
+
+
+        graphHistory.forEach(
+
+            function (sample) {
+
+
+                const value =
+
+                    sample.temps[
+                        channel
+                    ];
+
+
+                if (
+                    !Number.isFinite(
+                        value
+                    )
+                ) {
+
+
+                    started =
+                        false;
+
+
+                    return;
+                }
+
+
+                const x =
+
+                    left
+                    +
+                    (
+                        (
+                            sample.elapsed
+                            -
+                            firstTime
+                        )
+
+                        /
+
+                        (
+                            lastTime
+                            -
+                            firstTime
+                        )
+                    )
+
+                    *
+                    plotWidth;
+
+
+                const fraction =
+
+                    (
+                        yMax
+                        -
+                        value
+                    )
+
+                    /
+
+                    (
+                        yMax
+                        -
+                        yMin
+                    );
+
+
+                const y =
+
+                    top
+                    +
+                    fraction
+                    *
+                    plotHeight;
+
+
+                if (!started) {
+
+
+                    graphContext.moveTo(
+                        x,
+                        y
+                    );
+
+
+                    started =
+                        true;
+
+                }
+
+                else {
+
+
+                    graphContext.lineTo(
+                        x,
+                        y
+                    );
+
+                }
+
+            }
+
+        );
+
+
+        graphContext.strokeStyle =
+
+            CHANNEL_COLOURS[
+                channel
+            ];
+
+
+        graphContext.lineWidth =
+            2;
+
+
+        graphContext.lineJoin =
+            "round";
+
+
+        graphContext.lineCap =
+            "round";
+
+
+        graphContext.stroke();
+
+    }
+
+
+    // ========================================================
+    // GRAPH EMPTY MESSAGE
+    // ========================================================
+
+
+    function drawCentredMessage(
+
+        width,
+        height,
+        message
+
+    ) {
+
+
+        graphContext.fillStyle =
+            "#9da7b1";
+
+
+        graphContext.font =
+            "14px Arial";
+
+
+        graphContext.textAlign =
+            "center";
+
+
+        graphContext.textBaseline =
+            "middle";
+
+
+        graphContext.fillText(
+
+            message,
+
+            width / 2,
+
+            height / 2
+
+        );
+
+    }
+
+
+    // ========================================================
+    // GRAPH TIME LABEL
+    // ========================================================
+
+
+    function formatGraphTime(seconds) {
+
+
+        const value =
+
+            Math.max(
+                0,
+                Math.round(seconds)
+            );
+
+
+        if (
+            value < 60
+        ) {
+
+            return value + "s";
+        }
+
+
+        const minutes =
+
+            Math.floor(
+                value / 60
+            );
+
+
+        const remainingSeconds =
+
+            value % 60;
+
+
+        return (
+
+            minutes
+            +
+            "m "
+            +
+            remainingSeconds
+            +
+            "s"
+
+        );
+
+    }
+
+
+    // ========================================================
+    // EXPORT CSV
+    // ========================================================
+
+
+    function exportCSV() {
+
+
+        if (
+            csvHistory.length === 0
+        ) {
+
+
+            errorMessage.textContent =
+                "There is no recorded temperature data to export.";
+
+
+            return;
+        }
+
+
+        errorMessage.textContent =
+            "";
+
+
+        const rows =
+            [];
+
+
+        rows.push([
+
+            "timestamp",
+            "elapsed_s",
+            "scan",
+
+            "TC0_C",
+            "TC1_C",
+            "TC2_C",
+            "TC3_C",
+            "TC4_C",
+            "TC5_C",
+            "TC6_C",
+            "TC7_C"
+
+        ]);
+
+
+        csvHistory.forEach(
+
+            function (sample) {
+
+
+                rows.push([
+
+                    sample.timestamp,
+
+                    sample.elapsed
+                        .toFixed(2),
+
+                    sample.scan,
+
+                    ...sample.raw
+
+                ]);
+
+            }
+
+        );
+
+
+        const csvText =
+
+            rows
+                .map(
+
+                    row =>
+
+                        row
+                            .map(
+                                csvEscape
+                            )
+                            .join(",")
+
+                )
+                .join("\r\n");
+
+
+        const blob =
+
+            new Blob(
+
+                [csvText],
+
+                {
+                    type:
+                        "text/csv;charset=utf-8;"
+                }
+
+            );
+
+
+        const url =
+
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+
+            createCsvFilename();
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        document.body.removeChild(
+            link
+        );
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+
+        addLog(
+
+            "CSV exported: "
+            +
+            csvHistory.length
+            +
+            " samples."
+
+        );
+
+    }
+
+
+    // ========================================================
+    // CSV ESCAPE
+    // ========================================================
+
+
+    function csvEscape(value) {
+
+
+        const text =
+            String(value);
+
+
+        if (
+            text.includes(",")
+            ||
+            text.includes("\"")
+            ||
+            text.includes("\n")
+        ) {
+
+
+            return (
+
+                "\""
+                +
+                text.replace(
+                    /"/g,
+                    "\"\""
+                )
+                +
+                "\""
+
+            );
+
+        }
+
+
+        return text;
+
+    }
+
+
+    // ========================================================
+    // CSV FILENAME
+    // ========================================================
+
+
+    function createCsvFilename() {
+
+
+        const now =
+            new Date();
+
+
+        const pad =
+
+            value =>
+
+                String(value)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+
+        return (
+
+            "thermocouple_log_"
+
+            +
+            now.getFullYear()
+            +
+            "-"
+
+            +
+            pad(
+                now.getMonth() + 1
+            )
+            +
+            "-"
+
+            +
+            pad(
+                now.getDate()
+            )
+            +
+            "_"
+
+            +
+            pad(
+                now.getHours()
+            )
+            +
+            "-"
+
+            +
+            pad(
+                now.getMinutes()
+            )
+            +
+            "-"
+
+            +
+            pad(
+                now.getSeconds()
+            )
+
+            +
+            ".csv"
+
+        );
 
     }
 
@@ -1334,9 +3699,41 @@ Waiting for connection...
     }
 
 
+    // ========================================================
+    // WINDOW RESIZE
+    // ========================================================
+
+
+    window.addEventListener(
+
+        "resize",
+
+        function () {
+
+
+            if (!graphPaused) {
+
+                drawGraph();
+
+            }
+
+        }
+
+    );
+
+
+    // ========================================================
+    // INITIAL GRAPH
+    // ========================================================
+
+
+    drawGraph();
+
+
 </script>
 
 
 </body>
 
 </html>
+```
